@@ -14,6 +14,12 @@
 # EXTERNAL cache entries
 ########################
 
+//Value Computed by CMake
+Aris_Control_Demo_BINARY_DIR:STATIC=/home/chaixun/git/Aris_Control_demo
+
+//Value Computed by CMake
+Aris_Control_Demo_SOURCE_DIR:STATIC=/home/chaixun/git/Aris_Control_demo
+
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
@@ -116,7 +122,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=ROBOTS
+CMAKE_PROJECT_NAME:STATIC=Aris_Control_Demo
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib

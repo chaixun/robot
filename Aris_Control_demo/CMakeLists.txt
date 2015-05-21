@@ -9,7 +9,7 @@ FUNCTION(PREPEND var prefix)
    SET(${var} "${listVar}" PARENT_SCOPE)
 ENDFUNCTION(PREPEND)
 
-project(ROBOTS)
+project(Aris_Control_Demo)
 
 # set compile options
 if(UNIX)
@@ -41,19 +41,17 @@ set(SYSTEM_LINK_LIBS pthread gfortran)
 set(XENOMAI_LINK_LIBS native rtdm xenomai)
 set(ETHERLAB_LINK_LIBS ethercat rt)
 set(LAPACK_LINK_LIBS lapacke lapack cblas refblas)
-#set(ARIS_LINK_LIBS Aris_Plan Aris_ExpCal Aris_DynKer Aris_Control Aris_Core Aris_IMU xcommunication xstypes)
 set(ARIS_LINK_LIBS Aris_Plan Aris_DynKer Aris_ExpCal Aris_Control Aris_Core)
 
 # build programs
-set(SOURCE_FILES Aris_Control_demo.cpp Gait.cpp Server.cpp Hexapod_Robot.cpp Hexapod_Robot_Plan.cpp Hexapod_Robot_Prmt.cpp TrotGait.cpp)
-PREPEND(FULL_SRC Aris_Control_demo ${SOURCE_FILES})
-add_executable(Aris_Control_demo ${SOURCE_FILES})
-target_link_libraries(Aris_Control_demo ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
+set(SOURCE_FILES main.cpp Control.cpp Gait.cpp Server.cpp Hexapod_Robot.cpp Hexapod_Robot_Prmt.cpp)
+PREPEND(FULL_SRC Aris_Control_Demo ${SOURCE_FILES})
+add_executable(Aris_Control_Demo ${SOURCE_FILES})
+target_link_libraries(Aris_Control_Demo ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
-
-set(SOURCE_FILES main.cpp Client.cpp)
-PREPEND(FULL_SRC client ${SOURCE_FILES})
-add_executable(client ${SOURCE_FILES})
-target_link_libraries(client ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
+set(SOURCE_FILES Control_Client.cpp Client.cpp)
+PREPEND(FULL_SRC Control_Client ${SOURCE_FILES})
+add_executable(Control_Client ${SOURCE_FILES})
+target_link_libraries(Control_Client ${ARIS_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 

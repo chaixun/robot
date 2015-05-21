@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/chaixun/git/Aris_Control_demo/Client.cpp
+Client.h
+/home/chaixun/git/Aris_Control_demo/Client.h
+
+/home/chaixun/git/Aris_Control_demo/Client.h
+iostream
+-
+cstring
+-
+Aris_Socket.h
+-
+Aris_Message.h
+-
+
+/usr/include/Aris/Aris_Core.h
+
+/usr/include/Aris/Aris_Message.h
+Aris_Core.h
+/usr/include/Aris/Aris_Core.h
+functional
+-
+
+/usr/include/Aris/Aris_Socket.h
+Platform.h
+/usr/include/Aris/Platform.h
+Aris_Thread.h
+/usr/include/Aris/Aris_Thread.h
+Aris_Core.h
+/usr/include/Aris/Aris_Core.h
+
+/usr/include/Aris/Aris_Thread.h
+Platform.h
+/usr/include/Aris/Platform.h
+
+/usr/include/Aris/Platform.h
+

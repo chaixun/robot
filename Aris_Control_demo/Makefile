@@ -99,61 +99,37 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Aris_Control_demo
+# Target rules for targets named Aris_Control_Demo
 
 # Build rule for target.
-Aris_Control_demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Aris_Control_demo
-.PHONY : Aris_Control_demo
+Aris_Control_Demo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Aris_Control_Demo
+.PHONY : Aris_Control_Demo
 
 # fast build rule for target.
-Aris_Control_demo/fast:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/build
-.PHONY : Aris_Control_demo/fast
+Aris_Control_Demo/fast:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/build
+.PHONY : Aris_Control_Demo/fast
 
 #=============================================================================
-# Target rules for targets named client
+# Target rules for targets named Control_Client
 
 # Build rule for target.
-client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 client
-.PHONY : client
+Control_Client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Control_Client
+.PHONY : Control_Client
 
 # fast build rule for target.
-client/fast:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
-.PHONY : client/fast
-
-Aris_Control_demo.o: Aris_Control_demo.cpp.o
-.PHONY : Aris_Control_demo.o
-
-# target to build an object file
-Aris_Control_demo.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Aris_Control_demo.cpp.o
-.PHONY : Aris_Control_demo.cpp.o
-
-Aris_Control_demo.i: Aris_Control_demo.cpp.i
-.PHONY : Aris_Control_demo.i
-
-# target to preprocess a source file
-Aris_Control_demo.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Aris_Control_demo.cpp.i
-.PHONY : Aris_Control_demo.cpp.i
-
-Aris_Control_demo.s: Aris_Control_demo.cpp.s
-.PHONY : Aris_Control_demo.s
-
-# target to generate assembly for a file
-Aris_Control_demo.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Aris_Control_demo.cpp.s
-.PHONY : Aris_Control_demo.cpp.s
+Control_Client/fast:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/build
+.PHONY : Control_Client/fast
 
 Client.o: Client.cpp.o
 .PHONY : Client.o
 
 # target to build an object file
 Client.cpp.o:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.o
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Client.cpp.o
 .PHONY : Client.cpp.o
 
 Client.i: Client.cpp.i
@@ -161,7 +137,7 @@ Client.i: Client.cpp.i
 
 # target to preprocess a source file
 Client.cpp.i:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.i
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Client.cpp.i
 .PHONY : Client.cpp.i
 
 Client.s: Client.cpp.s
@@ -169,15 +145,63 @@ Client.s: Client.cpp.s
 
 # target to generate assembly for a file
 Client.cpp.s:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/Client.cpp.s
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Client.cpp.s
 .PHONY : Client.cpp.s
+
+Control.o: Control.cpp.o
+.PHONY : Control.o
+
+# target to build an object file
+Control.cpp.o:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o
+.PHONY : Control.cpp.o
+
+Control.i: Control.cpp.i
+.PHONY : Control.i
+
+# target to preprocess a source file
+Control.cpp.i:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Control.cpp.i
+.PHONY : Control.cpp.i
+
+Control.s: Control.cpp.s
+.PHONY : Control.s
+
+# target to generate assembly for a file
+Control.cpp.s:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Control.cpp.s
+.PHONY : Control.cpp.s
+
+Control_Client.o: Control_Client.cpp.o
+.PHONY : Control_Client.o
+
+# target to build an object file
+Control_Client.cpp.o:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Control_Client.cpp.o
+.PHONY : Control_Client.cpp.o
+
+Control_Client.i: Control_Client.cpp.i
+.PHONY : Control_Client.i
+
+# target to preprocess a source file
+Control_Client.cpp.i:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Control_Client.cpp.i
+.PHONY : Control_Client.cpp.i
+
+Control_Client.s: Control_Client.cpp.s
+.PHONY : Control_Client.s
+
+# target to generate assembly for a file
+Control_Client.cpp.s:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/Control_Client.cpp.s
+.PHONY : Control_Client.cpp.s
 
 Gait.o: Gait.cpp.o
 .PHONY : Gait.o
 
 # target to build an object file
 Gait.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Gait.cpp.o
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o
 .PHONY : Gait.cpp.o
 
 Gait.i: Gait.cpp.i
@@ -185,7 +209,7 @@ Gait.i: Gait.cpp.i
 
 # target to preprocess a source file
 Gait.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Gait.cpp.i
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.i
 .PHONY : Gait.cpp.i
 
 Gait.s: Gait.cpp.s
@@ -193,7 +217,7 @@ Gait.s: Gait.cpp.s
 
 # target to generate assembly for a file
 Gait.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Gait.cpp.s
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.s
 .PHONY : Gait.cpp.s
 
 Hexapod_Robot.o: Hexapod_Robot.cpp.o
@@ -201,7 +225,7 @@ Hexapod_Robot.o: Hexapod_Robot.cpp.o
 
 # target to build an object file
 Hexapod_Robot.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot.cpp.o
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o
 .PHONY : Hexapod_Robot.cpp.o
 
 Hexapod_Robot.i: Hexapod_Robot.cpp.i
@@ -209,7 +233,7 @@ Hexapod_Robot.i: Hexapod_Robot.cpp.i
 
 # target to preprocess a source file
 Hexapod_Robot.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot.cpp.i
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.i
 .PHONY : Hexapod_Robot.cpp.i
 
 Hexapod_Robot.s: Hexapod_Robot.cpp.s
@@ -217,39 +241,15 @@ Hexapod_Robot.s: Hexapod_Robot.cpp.s
 
 # target to generate assembly for a file
 Hexapod_Robot.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot.cpp.s
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.s
 .PHONY : Hexapod_Robot.cpp.s
-
-Hexapod_Robot_Plan.o: Hexapod_Robot_Plan.cpp.o
-.PHONY : Hexapod_Robot_Plan.o
-
-# target to build an object file
-Hexapod_Robot_Plan.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Plan.cpp.o
-.PHONY : Hexapod_Robot_Plan.cpp.o
-
-Hexapod_Robot_Plan.i: Hexapod_Robot_Plan.cpp.i
-.PHONY : Hexapod_Robot_Plan.i
-
-# target to preprocess a source file
-Hexapod_Robot_Plan.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Plan.cpp.i
-.PHONY : Hexapod_Robot_Plan.cpp.i
-
-Hexapod_Robot_Plan.s: Hexapod_Robot_Plan.cpp.s
-.PHONY : Hexapod_Robot_Plan.s
-
-# target to generate assembly for a file
-Hexapod_Robot_Plan.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Plan.cpp.s
-.PHONY : Hexapod_Robot_Plan.cpp.s
 
 Hexapod_Robot_Prmt.o: Hexapod_Robot_Prmt.cpp.o
 .PHONY : Hexapod_Robot_Prmt.o
 
 # target to build an object file
 Hexapod_Robot_Prmt.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Prmt.cpp.o
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o
 .PHONY : Hexapod_Robot_Prmt.cpp.o
 
 Hexapod_Robot_Prmt.i: Hexapod_Robot_Prmt.cpp.i
@@ -257,7 +257,7 @@ Hexapod_Robot_Prmt.i: Hexapod_Robot_Prmt.cpp.i
 
 # target to preprocess a source file
 Hexapod_Robot_Prmt.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Prmt.cpp.i
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.i
 .PHONY : Hexapod_Robot_Prmt.cpp.i
 
 Hexapod_Robot_Prmt.s: Hexapod_Robot_Prmt.cpp.s
@@ -265,7 +265,7 @@ Hexapod_Robot_Prmt.s: Hexapod_Robot_Prmt.cpp.s
 
 # target to generate assembly for a file
 Hexapod_Robot_Prmt.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Hexapod_Robot_Prmt.cpp.s
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.s
 .PHONY : Hexapod_Robot_Prmt.cpp.s
 
 Server.o: Server.cpp.o
@@ -273,7 +273,7 @@ Server.o: Server.cpp.o
 
 # target to build an object file
 Server.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Server.cpp.o
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o
 .PHONY : Server.cpp.o
 
 Server.i: Server.cpp.i
@@ -281,7 +281,7 @@ Server.i: Server.cpp.i
 
 # target to preprocess a source file
 Server.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Server.cpp.i
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Server.cpp.i
 .PHONY : Server.cpp.i
 
 Server.s: Server.cpp.s
@@ -289,39 +289,15 @@ Server.s: Server.cpp.s
 
 # target to generate assembly for a file
 Server.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/Server.cpp.s
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/Server.cpp.s
 .PHONY : Server.cpp.s
-
-TrotGait.o: TrotGait.cpp.o
-.PHONY : TrotGait.o
-
-# target to build an object file
-TrotGait.cpp.o:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/TrotGait.cpp.o
-.PHONY : TrotGait.cpp.o
-
-TrotGait.i: TrotGait.cpp.i
-.PHONY : TrotGait.i
-
-# target to preprocess a source file
-TrotGait.cpp.i:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/TrotGait.cpp.i
-.PHONY : TrotGait.cpp.i
-
-TrotGait.s: TrotGait.cpp.s
-.PHONY : TrotGait.s
-
-# target to generate assembly for a file
-TrotGait.cpp.s:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/TrotGait.cpp.s
-.PHONY : TrotGait.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -329,7 +305,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -337,7 +313,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -346,34 +322,31 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... Aris_Control_demo"
-	@echo "... client"
+	@echo "... Aris_Control_Demo"
+	@echo "... Control_Client"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Aris_Control_demo.o"
-	@echo "... Aris_Control_demo.i"
-	@echo "... Aris_Control_demo.s"
 	@echo "... Client.o"
 	@echo "... Client.i"
 	@echo "... Client.s"
+	@echo "... Control.o"
+	@echo "... Control.i"
+	@echo "... Control.s"
+	@echo "... Control_Client.o"
+	@echo "... Control_Client.i"
+	@echo "... Control_Client.s"
 	@echo "... Gait.o"
 	@echo "... Gait.i"
 	@echo "... Gait.s"
 	@echo "... Hexapod_Robot.o"
 	@echo "... Hexapod_Robot.i"
 	@echo "... Hexapod_Robot.s"
-	@echo "... Hexapod_Robot_Plan.o"
-	@echo "... Hexapod_Robot_Plan.i"
-	@echo "... Hexapod_Robot_Plan.s"
 	@echo "... Hexapod_Robot_Prmt.o"
 	@echo "... Hexapod_Robot_Prmt.i"
 	@echo "... Hexapod_Robot_Prmt.s"
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"
-	@echo "... TrotGait.o"
-	@echo "... TrotGait.i"
-	@echo "... TrotGait.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

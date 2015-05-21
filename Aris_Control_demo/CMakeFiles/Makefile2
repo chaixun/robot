@@ -53,73 +53,73 @@ CMAKE_SOURCE_DIR = /home/chaixun/git/Aris_Control_demo
 CMAKE_BINARY_DIR = /home/chaixun/git/Aris_Control_demo
 
 #=============================================================================
-# Target rules for target CMakeFiles/Aris_Control_demo.dir
+# Target rules for target CMakeFiles/Aris_Control_Demo.dir
 
 # All Build rule for target.
-CMakeFiles/Aris_Control_demo.dir/all:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/depend
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  1 2 3 4 5 6 7
-	@echo "Built target Aris_Control_demo"
-.PHONY : CMakeFiles/Aris_Control_demo.dir/all
+CMakeFiles/Aris_Control_Demo.dir/all:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/depend
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  1 2 3 4 5 6
+	@echo "Built target Aris_Control_Demo"
+.PHONY : CMakeFiles/Aris_Control_Demo.dir/all
 
 # Include target in all.
-all: CMakeFiles/Aris_Control_demo.dir/all
+all: CMakeFiles/Aris_Control_Demo.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Aris_Control_demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Aris_Control_demo.dir/all
+CMakeFiles/Aris_Control_Demo.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Aris_Control_Demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 0
-.PHONY : CMakeFiles/Aris_Control_demo.dir/rule
+.PHONY : CMakeFiles/Aris_Control_Demo.dir/rule
 
 # Convenience name for target.
-Aris_Control_demo: CMakeFiles/Aris_Control_demo.dir/rule
-.PHONY : Aris_Control_demo
+Aris_Control_Demo: CMakeFiles/Aris_Control_Demo.dir/rule
+.PHONY : Aris_Control_Demo
 
 # clean rule for target.
-CMakeFiles/Aris_Control_demo.dir/clean:
-	$(MAKE) -f CMakeFiles/Aris_Control_demo.dir/build.make CMakeFiles/Aris_Control_demo.dir/clean
-.PHONY : CMakeFiles/Aris_Control_demo.dir/clean
+CMakeFiles/Aris_Control_Demo.dir/clean:
+	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/clean
+.PHONY : CMakeFiles/Aris_Control_Demo.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/Aris_Control_demo.dir/clean
+clean: CMakeFiles/Aris_Control_Demo.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/client.dir
+# Target rules for target CMakeFiles/Control_Client.dir
 
 # All Build rule for target.
-CMakeFiles/client.dir/all:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/depend
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  8 9
-	@echo "Built target client"
-.PHONY : CMakeFiles/client.dir/all
+CMakeFiles/Control_Client.dir/all:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/depend
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  7 8
+	@echo "Built target Control_Client"
+.PHONY : CMakeFiles/Control_Client.dir/all
 
 # Include target in all.
-all: CMakeFiles/client.dir/all
+all: CMakeFiles/Control_Client.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/client.dir/rule: cmake_check_build_system
+CMakeFiles/Control_Client.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/client.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Control_Client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 0
-.PHONY : CMakeFiles/client.dir/rule
+.PHONY : CMakeFiles/Control_Client.dir/rule
 
 # Convenience name for target.
-client: CMakeFiles/client.dir/rule
-.PHONY : client
+Control_Client: CMakeFiles/Control_Client.dir/rule
+.PHONY : Control_Client
 
 # clean rule for target.
-CMakeFiles/client.dir/clean:
-	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/clean
-.PHONY : CMakeFiles/client.dir/clean
+CMakeFiles/Control_Client.dir/clean:
+	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/clean
+.PHONY : CMakeFiles/Control_Client.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/client.dir/clean
+clean: CMakeFiles/Control_Client.dir/clean
 .PHONY : clean
 
 #=============================================================================
