@@ -20,7 +20,7 @@ int On_CS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
     MSG CMD=CS_CMD_Received;
     CMD.SetLength(sizeof(int));
     CMD.Copy(&cmd,sizeof(int));
-    cout<<"received CMD is"<<cmd<<endl;
+    cout<<"received CMD is "<<cmd<<endl;
     PostMsg(CMD);
     return 0;
 }
@@ -78,6 +78,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
     int controlcmd;
     memcpy(&controlcmd,data.GetDataAddress(),data.GetLength());
 
+    Aris::Core::MSG command;
     switch (controlcmd)
     {
     case 0:
@@ -85,42 +86,30 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
         break;
     case 1:
     {
-        EGAIT cmd=GAIT_MOVE;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(cmd));
-        data.Copy(&cmd,sizeof(cmd));
-        cout<<"Send Message to CS"<<endl;
-        cs.NRT_PostMsg(data);
+        command.SetMsgID(FORWARD);
+        cout<<"Send GAIT_MOVE Message to CS"<<endl;
+        cs.NRT_PostMsg(command);
     }
         break;
     case 2:
     {
-        EGAIT cmd=GAIT_MOVE_BACK;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(cmd));
-        data.Copy(&cmd,sizeof(cmd));
-        cout<<"Send Message to CS"<<endl;
-        cs.NRT_PostMsg(data);
+        command.SetMsgID(BACKWARD);
+        cout<<"Send GAIT_MOVE_BACK Message to CS"<<endl;
+        cs.NRT_PostMsg(command);
     }
         break;
     case 3:
     {
-        EGAIT cmd=GAIT_TURN_LEFT;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(cmd));
-        data.Copy(&cmd,sizeof(cmd));
-        cout<<"Send Message to CS"<<endl;
-        cs.NRT_PostMsg(data);
+        command.SetMsgID(TURNLEFT);
+        cout<<"Send GAIT_TURN_LEFT Message to CS"<<endl;
+        cs.NRT_PostMsg(command);
     }
         break;
     case 4:
     {
-        EGAIT cmd=GAIT_TURN_RIGHT;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(cmd));
-        data.Copy(&cmd,sizeof(cmd));
-        cout<<"Send Message to CS"<<endl;
-        cs.NRT_PostMsg(data);
+        command.SetMsgID(TURNRIGHT);
+        cout<<"Send GAIT_TURN_RIGHT Message to CS"<<endl;
+        cs.NRT_PostMsg(command);
     }
         break;
     default:
