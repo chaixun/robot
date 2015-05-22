@@ -4,12 +4,12 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/chaixun/git/Aris_Control_demo/Control.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/Gait.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/Hexapod_Robot.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/Server.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/main.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/main.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Control.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Gait.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Hexapod_Robot.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Server.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o"
+  "/home/hex/git/Aris_Control_demo/main.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/main.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

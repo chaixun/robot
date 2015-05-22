@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_SOURCE_DIR = /home/hex/git/Aris_Control_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_BINARY_DIR = /home/hex/git/Aris_Control_demo
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Aris_Control_Demo.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/Aris_Control_Demo.dir/flags.make
 
 CMakeFiles/Aris_Control_Demo.dir/main.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/main.cpp.o: main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/main.cpp.o -c /home/chaixun/git/Aris_Control_demo/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/main.cpp.o -c /home/hex/git/Aris_Control_demo/main.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/main.cpp > CMakeFiles/Aris_Control_Demo.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/main.cpp > CMakeFiles/Aris_Control_Demo.dir/main.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/main.cpp -o CMakeFiles/Aris_Control_Demo.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/main.cpp -o CMakeFiles/Aris_Control_Demo.dir/main.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/main.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/main.cpp.o.requires
@@ -74,17 +74,17 @@ CMakeFiles/Aris_Control_Demo.dir/main.cpp.o.provides.build: CMakeFiles/Aris_Cont
 
 CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o: Control.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o -c /home/chaixun/git/Aris_Control_demo/Control.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o -c /home/hex/git/Aris_Control_demo/Control.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/Control.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/Control.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Control.cpp > CMakeFiles/Aris_Control_Demo.dir/Control.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Control.cpp > CMakeFiles/Aris_Control_Demo.dir/Control.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/Control.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/Control.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Control.cpp -o CMakeFiles/Aris_Control_Demo.dir/Control.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Control.cpp -o CMakeFiles/Aris_Control_Demo.dir/Control.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o.requires
@@ -97,17 +97,17 @@ CMakeFiles/Aris_Control_Demo.dir/Control.cpp.o.provides.build: CMakeFiles/Aris_C
 
 CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o: Gait.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o -c /home/chaixun/git/Aris_Control_demo/Gait.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o -c /home/hex/git/Aris_Control_demo/Gait.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Gait.cpp > CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Gait.cpp > CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Gait.cpp -o CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Gait.cpp -o CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o.requires
@@ -120,17 +120,17 @@ CMakeFiles/Aris_Control_Demo.dir/Gait.cpp.o.provides.build: CMakeFiles/Aris_Cont
 
 CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o: Server.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o -c /home/chaixun/git/Aris_Control_demo/Server.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o -c /home/hex/git/Aris_Control_demo/Server.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/Server.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Server.cpp > CMakeFiles/Aris_Control_Demo.dir/Server.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Server.cpp > CMakeFiles/Aris_Control_Demo.dir/Server.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/Server.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Server.cpp -o CMakeFiles/Aris_Control_Demo.dir/Server.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Server.cpp -o CMakeFiles/Aris_Control_Demo.dir/Server.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o.requires
@@ -143,17 +143,17 @@ CMakeFiles/Aris_Control_Demo.dir/Server.cpp.o.provides.build: CMakeFiles/Aris_Co
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o: Hexapod_Robot.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o -c /home/chaixun/git/Aris_Control_demo/Hexapod_Robot.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o -c /home/hex/git/Aris_Control_demo/Hexapod_Robot.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Hexapod_Robot.cpp > CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Hexapod_Robot.cpp > CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Hexapod_Robot.cpp -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Hexapod_Robot.cpp -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o.requires
@@ -166,17 +166,17 @@ CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o: CMakeFiles/Aris_Control_Demo.dir/flags.make
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o: Hexapod_Robot_Prmt.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o -c /home/chaixun/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o -c /home/hex/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp > CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp > CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.i
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Hexapod_Robot_Prmt.cpp -o CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.s
 
 CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o.requires:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/Hexapod_Robot_Prmt.cpp.o.requires
@@ -227,6 +227,6 @@ CMakeFiles/Aris_Control_Demo.dir/clean:
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/clean
 
 CMakeFiles/Aris_Control_Demo.dir/depend:
-	cd /home/chaixun/git/Aris_Control_demo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hex/git/Aris_Control_demo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/depend
 

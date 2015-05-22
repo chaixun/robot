@@ -47,10 +47,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_SOURCE_DIR = /home/hex/git/Aris_Control_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_BINARY_DIR = /home/hex/git/Aris_Control_demo
 
 #=============================================================================
 # Target rules for target CMakeFiles/Aris_Control_Demo.dir
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/chaixun/git/Aris_Control_demo
 CMakeFiles/Aris_Control_Demo.dir/all:
 	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/depend
 	$(MAKE) -f CMakeFiles/Aris_Control_Demo.dir/build.make CMakeFiles/Aris_Control_Demo.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  1 2 3 4 5 6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles  1 2 3 4 5 6
 	@echo "Built target Aris_Control_Demo"
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/all
 
@@ -69,9 +69,9 @@ all: CMakeFiles/Aris_Control_Demo.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Aris_Control_Demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hex/git/Aris_Control_demo/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Aris_Control_Demo.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hex/git/Aris_Control_demo/CMakeFiles 0
 .PHONY : CMakeFiles/Aris_Control_Demo.dir/rule
 
 # Convenience name for target.
@@ -94,7 +94,7 @@ clean: CMakeFiles/Aris_Control_Demo.dir/clean
 CMakeFiles/Control_Client.dir/all:
 	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/depend
 	$(MAKE) -f CMakeFiles/Control_Client.dir/build.make CMakeFiles/Control_Client.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles  7 8
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles  7 8
 	@echo "Built target Control_Client"
 .PHONY : CMakeFiles/Control_Client.dir/all
 
@@ -104,9 +104,9 @@ all: CMakeFiles/Control_Client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Control_Client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hex/git/Aris_Control_demo/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Control_Client.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chaixun/git/Aris_Control_demo/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hex/git/Aris_Control_demo/CMakeFiles 0
 .PHONY : CMakeFiles/Control_Client.dir/rule
 
 # Convenience name for target.

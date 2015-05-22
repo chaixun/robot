@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/chaixun/git/Aris_Control_demo/Client.cpp
+/home/hex/git/Aris_Control_demo/Client.cpp
 Client.h
-/home/chaixun/git/Aris_Control_demo/Client.h
+/home/hex/git/Aris_Control_demo/Client.h
 
-/home/chaixun/git/Aris_Control_demo/Client.h
+/home/hex/git/Aris_Control_demo/Client.h
 iostream
 -
 cstring
@@ -18,6 +18,20 @@ cstring
 Aris_Socket.h
 -
 Aris_Message.h
+-
+
+/home/hex/git/Aris_Control_demo/Control_Client.cpp
+cstring
+-
+iomanip
+-
+bitset
+-
+Platform.h
+/home/hex/git/Aris_Control_demo/Platform.h
+Client.h
+/home/hex/git/Aris_Control_demo/Client.h
+unistd.h
 -
 
 /usr/include/Aris/Aris_Core.h

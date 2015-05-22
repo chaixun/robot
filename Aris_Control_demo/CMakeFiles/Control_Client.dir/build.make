@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_SOURCE_DIR = /home/hex/git/Aris_Control_demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chaixun/git/Aris_Control_demo
+CMAKE_BINARY_DIR = /home/hex/git/Aris_Control_demo
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Control_Client.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/Control_Client.dir/flags.make
 
 CMakeFiles/Control_Client.dir/Control_Client.cpp.o: CMakeFiles/Control_Client.dir/flags.make
 CMakeFiles/Control_Client.dir/Control_Client.cpp.o: Control_Client.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Control_Client.dir/Control_Client.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Control_Client.dir/Control_Client.cpp.o -c /home/chaixun/git/Aris_Control_demo/Control_Client.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Control_Client.dir/Control_Client.cpp.o -c /home/hex/git/Aris_Control_demo/Control_Client.cpp
 
 CMakeFiles/Control_Client.dir/Control_Client.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Control_Client.dir/Control_Client.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Control_Client.cpp > CMakeFiles/Control_Client.dir/Control_Client.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Control_Client.cpp > CMakeFiles/Control_Client.dir/Control_Client.cpp.i
 
 CMakeFiles/Control_Client.dir/Control_Client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Control_Client.dir/Control_Client.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Control_Client.cpp -o CMakeFiles/Control_Client.dir/Control_Client.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Control_Client.cpp -o CMakeFiles/Control_Client.dir/Control_Client.cpp.s
 
 CMakeFiles/Control_Client.dir/Control_Client.cpp.o.requires:
 .PHONY : CMakeFiles/Control_Client.dir/Control_Client.cpp.o.requires
@@ -74,17 +74,17 @@ CMakeFiles/Control_Client.dir/Control_Client.cpp.o.provides.build: CMakeFiles/Co
 
 CMakeFiles/Control_Client.dir/Client.cpp.o: CMakeFiles/Control_Client.dir/flags.make
 CMakeFiles/Control_Client.dir/Client.cpp.o: Client.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chaixun/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/hex/git/Aris_Control_demo/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Control_Client.dir/Client.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Control_Client.dir/Client.cpp.o -c /home/chaixun/git/Aris_Control_demo/Client.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Control_Client.dir/Client.cpp.o -c /home/hex/git/Aris_Control_demo/Client.cpp
 
 CMakeFiles/Control_Client.dir/Client.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Control_Client.dir/Client.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chaixun/git/Aris_Control_demo/Client.cpp > CMakeFiles/Control_Client.dir/Client.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/hex/git/Aris_Control_demo/Client.cpp > CMakeFiles/Control_Client.dir/Client.cpp.i
 
 CMakeFiles/Control_Client.dir/Client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Control_Client.dir/Client.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chaixun/git/Aris_Control_demo/Client.cpp -o CMakeFiles/Control_Client.dir/Client.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/hex/git/Aris_Control_demo/Client.cpp -o CMakeFiles/Control_Client.dir/Client.cpp.s
 
 CMakeFiles/Control_Client.dir/Client.cpp.o.requires:
 .PHONY : CMakeFiles/Control_Client.dir/Client.cpp.o.requires
@@ -123,6 +123,6 @@ CMakeFiles/Control_Client.dir/clean:
 .PHONY : CMakeFiles/Control_Client.dir/clean
 
 CMakeFiles/Control_Client.dir/depend:
-	cd /home/chaixun/git/Aris_Control_demo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo /home/chaixun/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hex/git/Aris_Control_demo && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo /home/hex/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Control_Client.dir/depend
 

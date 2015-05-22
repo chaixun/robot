@@ -4,8 +4,8 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/chaixun/git/Aris_Control_demo/Client.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/Client.cpp.o"
-  "/home/chaixun/git/Aris_Control_demo/Control_Client.cpp" "/home/chaixun/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/Control_Client.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Client.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/Client.cpp.o"
+  "/home/hex/git/Aris_Control_demo/Control_Client.cpp" "/home/hex/git/Aris_Control_demo/CMakeFiles/Control_Client.dir/Control_Client.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
