@@ -18,3 +18,11 @@ Gait.txt
 *.botlog
 
 
+CMakeFiles
+.cproject
+.project
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+
