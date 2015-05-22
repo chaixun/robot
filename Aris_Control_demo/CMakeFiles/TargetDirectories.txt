@@ -1,0 +1,2 @@
+/home/chaixun/git/Aris_Control_demo/CMakeFiles/Aris_Control_Demo.dir
+/home/chaixun/git/Aris_Control_demo/CMakeFiles/Control_Client.dir
