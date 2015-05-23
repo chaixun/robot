@@ -6,7 +6,7 @@
 #include <Aris_Message.h>
 #include <Aris_Socket.h>
 #include "Gait.h"
- 
+
 using namespace std;
 using namespace Aris::Core;
 
@@ -14,9 +14,9 @@ extern Aris::RT_CONTROL::ACTUATION cs;
 
 enum Client_Msg
 {
-	CS_Connected=0,
-	CS_CMD_Received=1,
-	CS_Lost=2,
+    CS_Connected=0,
+    CS_CMD_Received=1,
+    CS_Lost=2,
 
     VS_Connected=3,
     VS_Capture=4,
@@ -37,15 +37,15 @@ enum MACHINE_CMD
     HOME2START_2=1008,
     FORWARD=1009,
     BACKWARD=1010,
+    TURNLEFT=1011,
+    TURNRIGHT=1012,
     LEGUP=1013,
-    TURNLEFT=1014,
-    TURNRIGHT=1015,
 };
 
 
 enum RobotCMD_Msg
 {
-	GetControlCommand=100,
+    GetControlCommand=100,
 };
 
 //CS

@@ -212,6 +212,36 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             }
         }
         break;
+    case BEGINDISCOVER:
+        if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_BEGIN_DISCOVER;
+            }
+        }
+        break;
+    case ENDDISCOVER:
+        if(gait.m_gaitState[MapAbsToPhy[0]]== GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_END_DISCOVER;
+            }
+        }
+        break;
+    case WALKADAPTIVE:
+        if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_WALK_ADAPTIVE;
+            }
+        }
+        break;
     default:
         //DO NOTHING, CMD AND TRAJ WILL KEEP STILL
         break;
@@ -220,6 +250,23 @@ int tg(CMachineData& machineData,RT_MSG& msg)
     // rt_printf("driver 0 gaitcmd:%d\n",gaitcmd[0]);
 
     gait.RunGait(gaitcmd,machineData);
+
+    if(gait.IsGaitFinished())
+    {
+        if (CGait::IsWalkAdaptiveRegistered == true && CGait::IsWalkAdaptiveStepRegistered == true)
+        {
+            rt_printf("WALK AVOID STEP FINISHED!!!!!\n");
+            CGait::IsWalkAdaptiveStepRegistered = false;
+            Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+        }
+
+        if (CGait::IsWalkAvoidRegistered == true && CGait::IsWalkAvoidStepRegistered == true)
+        {
+            rt_printf("WALK AVOID STEP FINISHED!!!!!\n");
+            CGait::IsWalkAvoidStepRegistered = false;
+            Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+        }
+    }
 
     return 0;
 }

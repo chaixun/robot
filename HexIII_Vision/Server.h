@@ -2,16 +2,17 @@
 #define SERVER_H_
 
 #include <iostream>
-#include <sstream>
 #include <cstring>
 #include <Aris_Message.h>
 #include <Aris_Socket.h>
 #include "Gait.h"
+#include "Hexapod_Robot.h"
 
 using namespace std;
 using namespace Aris::Core;
 
 extern Aris::RT_CONTROL::ACTUATION cs;
+extern Hexapod_Robot::ROBOT HexIII;
 
 enum Client_Msg
 {
@@ -41,7 +42,17 @@ enum MACHINE_CMD
     TURNLEFT = 1011,
     TURNRIGHT = 1012,
     LEGUP = 1013,
-    AUTO_CALIBRATION = 1014,
+    BEGINDISCOVER = 1014,
+    ENDDISCOVER = 1015,
+    WALKADAPTIVE = 1016,
+    WALKAVOID = 1017,
+};
+
+
+enum Vision_Msg
+{
+    Walk_Adaptive = 60,
+    Walk_Avoid = 61,
 };
 
 
