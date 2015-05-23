@@ -30,6 +30,77 @@ int On_CS_ConnectionLost(Aris::Core::CONN *pConn)
     return 0;
 }
 
+int OnGetControlCommand(MSG &msg)
+{
+    int CommandID;
+    msg.Paste(&CommandID,sizeof(int));
+    Aris::Core::MSG data;
+
+    switch(CommandID)
+    {
+    case 1:
+        data.SetMsgID(POWEROFF);
+        cs.NRT_PostMsg(data);
+        break;
+    case 2:
+        data.SetMsgID(STOP);
+        cs.NRT_PostMsg(data);
+        break;
+    case 3:
+        data.SetMsgID(ENABLE);
+        cs.NRT_PostMsg(data);
+        break;
+    case 4:
+        data.SetMsgID(RUNNING);
+        cs.NRT_PostMsg(data);
+        break;
+    case 5:
+        data.SetMsgID(GOHOME_1);
+        cs.NRT_PostMsg(data);
+        break;
+    case 6:
+        data.SetMsgID(GOHOME_2);
+        cs.NRT_PostMsg(data);
+        break;
+    case 7:
+        data.SetMsgID(HOME2START_1);
+        cs.NRT_PostMsg(data);
+        break;
+    case 8:
+        data.SetMsgID(HOME2START_2);
+        cs.NRT_PostMsg(data);
+        break;
+    case 9:
+        data.SetMsgID(FORWARD);
+        cs.NRT_PostMsg(data);
+        break;
+    case 10:
+        data.SetMsgID(BACKWARD);
+        cs.NRT_PostMsg(data);
+        break;
+    case 11:
+        data.SetMsgID(TURNLEFT);
+        cs.NRT_PostMsg(data);
+        break;
+    case 12:
+        data.SetMsgID(TURNRIGHT);
+        cs.NRT_PostMsg(data);
+        break;
+    case 13:
+        data.SetMsgID(LEGUP);
+        cs.NRT_PostMsg(data);
+        break;
+    case 14:
+        Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+        CGait::IsWalkAvoidRegistered=true;
+        break;
+    default:
+        cout<<"Do Not Get Validate CMD"<<endl;
+        break;
+    }
+    return CommandID;
+}
+
 //MSG call back functions
 int On_CS_Connected(Aris::Core::MSG &msg)
 {

@@ -24,6 +24,4 @@ int initFun(CSysInitParameters& param);
 
 int tg(CMachineData& machineData, RT_MSG& msg);
 
-int OnGetControlCommand(MSG &msg);
-
 #endif // CONTROL_H

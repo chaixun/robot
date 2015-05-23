@@ -53,6 +53,7 @@ enum RobotCMD_Msg
 int On_CS_Connected(Aris::Core::MSG &msg);
 int On_CS_CMD_Received(Aris::Core::MSG &msg);
 int On_CS_Lost(Aris::Core::MSG &msg);
+int OnGetControlCommand(MSG &msg);
 
 int On_VS_Connected(Aris::Core::MSG &msg);
 int On_VS_Capture(Aris::Core::MSG &msg);

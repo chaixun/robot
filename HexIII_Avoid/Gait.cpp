@@ -97,7 +97,7 @@ int CGait::InitGait(Aris::RT_CONTROL::CSysInitParameters& param)
     std::cout << "Start Reading File" << std::endl;
     std::cout<<"reading file data..."<<std::endl;
 
-    fin.open("./gait/TL.txt");
+    fin.open("./gait/TL15.txt");
     for(int i=0;i<GAIT_TURN_LEN;i++)
     {
         fin>>Line_Num;
@@ -109,7 +109,7 @@ int CGait::InitGait(Aris::RT_CONTROL::CSysInitParameters& param)
     }
     fin.close();
 
-    fin.open("./gait/TR.txt");
+    fin.open("./gait/TR15.txt");
     for(int i=0;i<GAIT_TURN_LEN;i++)
     {
         fin>>Line_Num;
