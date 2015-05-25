@@ -138,12 +138,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             if(LeftHeight>RightHeight&&LeftHeight>MiddleHeight)
             {
                 ControlCommand = TurnLeft;
-                cout<<"Send Turn Right!!!"<<endl;
+                cout<<"Send Turn Left!!!"<<endl;
             }
             else if(RightHeight>LeftHeight&&RightHeight>MiddleHeight)
             {
                 ControlCommand = TurnRight;
-                cout<<"Send Turn Left!!!"<<endl;
+                cout<<"Send Turn Right!!!"<<endl;
             }
             else if(MiddleHeight>LeftHeight&&MiddleHeight>RightHeight)
             {
