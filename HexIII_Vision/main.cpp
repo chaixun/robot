@@ -1,14 +1,13 @@
 #include "Control.h"
-#include "Hexapod_Robot.h"
+#include "Robot_Vision.h"
 
 using namespace std;
 using namespace Aris::Core;
 using namespace Aris::RT_CONTROL;
-using namespace Hexapod_Robot;
 
 ACTUATION cs;
 CSysInitParameters initParam;
-Hexapod_Robot::ROBOT HexIII;
+Vision_Robot HexIII;
 
 static int HEXBOT_HOME_OFFSETS_RESOLVER[18] =
 {
@@ -22,7 +21,7 @@ static int HEXBOT_HOME_OFFSETS_RESOLVER[18] =
 
 int main()
 {
-    HexIII.LoadXML("HexapodIII.xml");
+    HexIII.LoadXML("/usr/Robots/resource/HexapodIII/HexapodIII.xml");
 
     Aris::Core::RegisterMsgCallback(CS_Connected,On_CS_Connected);
     Aris::Core::RegisterMsgCallback(CS_CMD_Received,On_CS_CMD_Received);

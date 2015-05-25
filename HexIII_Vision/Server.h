@@ -6,13 +6,13 @@
 #include <Aris_Message.h>
 #include <Aris_Socket.h>
 #include "Gait.h"
-#include "Hexapod_Robot.h"
+#include "Robot_Vision.h"
 
 using namespace std;
 using namespace Aris::Core;
 
 extern Aris::RT_CONTROL::ACTUATION cs;
-extern Hexapod_Robot::ROBOT HexIII;
+extern Vision_Robot HexIII;
 
 enum Client_Msg
 {

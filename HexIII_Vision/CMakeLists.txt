@@ -26,15 +26,17 @@ set(LIBRARY_OUTPUT_PATH lib)
 
 # set include and lib folders
 if(UNIX)
-include_directories("/usr/include/Lapack")
-include_directories("/usr/include/Aris")
+include_directories("/usr/lapack/include")
+include_directories("/usr/Aris/include")
 include_directories("/usr/xenomai/include")
 include_directories("/opt/etherlab/include")
+include_directories("/usr/Robots/include")
 include_directories(${PCL_INCLUDE_DIRS})
-link_directories(/usr/lib/Lapack)
-link_directories(/usr/lib/Aris)
+link_directories(/usr/lapack/lib)
+link_directories(/usr/Aris/lib)
 link_directories(/usr/xenomai/lib)
 link_directories(/opt/etherlab/lib)
+link_directories(/usr/Robots/lib)
 link_directories(${PCL_LIBRARY_DIRS})
 endif(UNIX)
 if(WIN32)
@@ -49,11 +51,13 @@ set(ETHERLAB_LINK_LIBS ethercat rt)
 set(LAPACK_LINK_LIBS lapacke lapack cblas refblas)
 set(ARIS_LINK_LIBS Aris_Plan Aris_DynKer Aris_ExpCal Aris_Control Aris_Core)
 
+set(ROBOTS_LINK_LIBS  HexapodIII)
+
 # build HexIII_Vision
-set(SOURCE_FILES main.cpp Control.cpp Gait.cpp Server.cpp Hexapod_Robot.cpp Hexapod_Robot_Prmt.cpp)
+set(SOURCE_FILES main.cpp Control.cpp Gait.cpp Server.cpp Robot_Vision.cpp)
 #PREPEND(FULL_SRC HexIII_Adaptive ${SOURCE_FILES})
 add_executable(HexIII_Vision ${SOURCE_FILES})
-target_link_libraries(HexIII_Vision ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
+target_link_libraries(HexIII_Vision ${ROBOTS_LINK_LIBS} ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 # build Control Client
 set(SOURCE_FILES Control_Client.cpp Client.cpp)
@@ -63,6 +67,7 @@ target_link_libraries(Control_Client ${ARIS_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 # build programs Vision Clent
 set(SOURCE_FILES Vision_Client.cpp Vision_main.cpp Kinect_Test.cpp)
+#PREPEND(FULL_SRC Vision_Client ${SOURCE_FILES})
 add_executable(Vision_Client ${SOURCE_FILES})
 target_link_libraries(Vision_Client ${ARIS_LINK_LIBS}  ${SYSTEM_LINK_LIBS} ${PCL_LIBRARIES} ${OpenCV_LIBS})
 

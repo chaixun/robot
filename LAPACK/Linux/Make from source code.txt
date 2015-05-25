@@ -1,0 +1,21 @@
+1. Extract "BLAS.tar.gz" "clbas.tgz" and "lapack-3.5.0.tgz"
+
+2. Copy "Makefile_of_lapack" to "lapack-3.5.0/Makefile"
+
+3. Rename "lapack-3.5.0/make.inc.example" to lapack-3.5.0/make.inc
+
+4. Copy "Makefile.in_of_cblas" to folder "CBLAS/Makefile.in"
+
+5. enter folder BLAS, CBLAS, lapack-3.5.0 and make
+
+you need lib files in these folders:
+
+cblas_LINUX.a liblapack.a liblapacke.a libtmglib.a librefblas.a
+
+and additionally:
+
+libgfortran.a from /usr/lib/gcc/x86_64-linux-gnu/4.8/libgfortran.a
+
+and headers from folder headers:
+
+
