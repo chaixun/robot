@@ -55,9 +55,9 @@ set(ROBOTS_LINK_LIBS  HexapodIII)
 
 # build HexIII_Avoid
 set(SOURCE_FILES main.cpp Control.cpp Gait.cpp Server.cpp)
-#PREPEND(FULL_SRC HexIII_Avoid ${SOURCE_FILES})
-add_executable(HexIII_Avoid ${SOURCE_FILES})
-target_link_libraries(HexIII_Avoid ${ROBOTS_LINK_LIBS} ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
+#PREPEND(FULL_SRC HexIII_Safe ${SOURCE_FILES})
+add_executable(HexIII_Safe ${SOURCE_FILES})
+target_link_libraries(HexIII_Safe ${ROBOTS_LINK_LIBS} ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 # build Control Client
 set(SOURCE_FILES Control_Client.cpp Client.cpp)
