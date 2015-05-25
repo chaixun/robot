@@ -162,7 +162,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
 
     memcpy(nextH,map,sizeof(nextH));
 
-    HexIII.MoveWithKinect(currentH,nextH,*Gait_Calculated_From_Map);
+    HexIII.MotionPlanWithKinect(currentH,nextH,*Gait_Calculated_From_Map);
 
     memcpy(currentH,nextH,sizeof(nextH));
 
