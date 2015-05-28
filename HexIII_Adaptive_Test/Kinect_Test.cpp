@@ -73,9 +73,17 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
                 n = floor(RobotPoint->points[i].x/0.025) + 60;
                 m = floor(RobotPoint->points[i].z/0.025);
 
+                Position temp_p;
+                temp_p.x = RobotPoint->points[i].x;
+                temp_p.y = RobotPoint->points[i].y;
+                temp_p.z = RobotPoint->points[i].z;
+
                 //Mean
                 GridMap(m,n) = (GridMap(m,n)*GridNum(m,n) + RobotPoint->points[i].y)/(GridNum(m,n) + 1);
                 GridNum(m,n) = GridNum(m,n) + 1;
+
+                Map[m][n].height = GridMap(m,n);
+                Map[m][n].pointcloud.push_back(temp_p);
 
                 //Max
                 /*
@@ -86,6 +94,48 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         */
             }
         }
+
+        for(int i = 0; i < 120; i++)
+        {
+            for(int j = 0; j < 120; j++)
+            {
+                int num = Map[i][j].pointcloud.size();
+                double A[num][3];
+                double b[num][1];
+
+                for(int i = 0; i < num; i++)
+                {
+                    A[i][0] = Map[i][j].pointcloud.at(i).x;
+                    A[i][1] = Map[i][j].pointcloud.at(i).y;
+                    A[i][2] = Map[i][j].pointcloud.at(i).z;
+                    b[i][0] = 1;
+                }
+                lapack_int info;
+
+                info =  LAPACKE_dgels(LAPACK_ROW_MAJOR,'N',num,3,1,*A,3,*b,1);
+                if(*b[0] < 0)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        *b[i] = -*b[i];
+                    }
+                }
+                Map[i][j].Plane_Para[0] = *b[0];
+                Map[i][j].Plane_Para[1] = *b[1];
+                Map[i][j].Plane_Para[2] = *b[2];
+                Map[i][j].Plane_Para[3] = -*b[3];
+
+                for(int i = 0; i < num; i++)
+                {
+                    Map[i][j].Flatness = abs(Map[i][j].Plane_Para[0]*Map[i][j].pointcloud.at(i).x +
+                            Map[i][j].Plane_Para[1]*Map[i][j].pointcloud.at(i).y +
+                            Map[i][j].Plane_Para[2]*Map[i][j].pointcloud.at(i).z + Map[i][j].Plane_Para[3])
+                            /sqrt(Map[i][j].Plane_Para[0]*Map[i][j].Plane_Para[0] + Map[i][j].Plane_Para[1]*Map[i][j].Plane_Para[1]
+                            + Map[i][j].Plane_Para[2]*Map[i][j].Plane_Para[2]) + Map[i][j].Flatness;
+                }
+            }
+        }
+
         //Judge Command
 
         CurrentHeight[0] = (GridMap(39,43) + GridMap(39,44) + GridMap(40,43) + GridMap(40,44))/4;

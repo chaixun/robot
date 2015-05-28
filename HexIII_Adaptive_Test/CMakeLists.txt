@@ -66,9 +66,9 @@ add_executable(Control_Client ${SOURCE_FILES})
 target_link_libraries(Control_Client ${ARIS_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 # build programs Vision Clent
-set(SOURCE_FILES Vision_Client.cpp Vision_main.cpp Kinect_Test.cpp)
+set(SOURCE_FILES Vision_Client.cpp Vision_main.cpp Kinect_Test.cpp Image.h)
 #PREPEND(FULL_SRC Vision_Client ${SOURCE_FILES})
 add_executable(Vision_Client ${SOURCE_FILES})
-target_link_libraries(Vision_Client ${ARIS_LINK_LIBS}  ${SYSTEM_LINK_LIBS} ${PCL_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(Vision_Client ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${SYSTEM_LINK_LIBS} ${PCL_LIBRARIES} ${OpenCV_LIBS})
 
 

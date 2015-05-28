@@ -5,6 +5,9 @@
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/common/transforms.h>
+#include <lapacke.h>
+#include "Image.h"
+#include "math.h"
 
 using namespace std;
 using namespace pcl;
@@ -31,7 +34,8 @@ public:
     void stop();
     static double CurrentHeight[4];
     static bool IsCaptureEnd;
-private:
+    Image Map[120][120];
+    private:
     pcl::OpenNIGrabber* interface;
     int frames_num;
     bool IsCapture;
