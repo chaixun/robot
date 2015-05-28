@@ -117,26 +117,22 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
                     lapack_int info;
 
                     info =  LAPACKE_dgels(LAPACK_ROW_MAJOR,'N',num,3,1,*A,3,*b,1);
-                    if(*b[0] < 0)
-                    {
-                        for (int k = 0; k < 4; k++)
-                        {
-                            *b[k] = -*b[k];
-                        }
-                    }
-                    Map[i][j].Plane_Para[0] = *b[0];
-                    Map[i][j].Plane_Para[1] = *b[1];
-                    Map[i][j].Plane_Para[2] = *b[2];
-                    Map[i][j].Plane_Para[3] = -*b[3];
+
+                    Map[i][j].Plane_Para[0] = b[0][0];
+                    Map[i][j].Plane_Para[1] = b[1][0];
+                    Map[i][j].Plane_Para[2] = b[2][0];
+                    Map[i][j].Plane_Para[3] = -b[3][0];
 
                     for(int n = 0; n < num; n++)
                     {
-                        Map[i][j].Flatness = abs(Map[i][j].Plane_Para[0]*Map[i][j].pointcloud.at(n).x +
+                        Map[i][j].Roughness = abs(Map[i][j].Plane_Para[0]*Map[i][j].pointcloud.at(n).x +
                                 Map[i][j].Plane_Para[1]*Map[i][j].pointcloud.at(n).y +
                                 Map[i][j].Plane_Para[2]*Map[i][j].pointcloud.at(n).z + Map[i][j].Plane_Para[3])
-                                /sqrt(Map[i][j].Plane_Para[0]*Map[i][j].Plane_Para[0] + Map[i][j].Plane_Para[1]*Map[i][j].Plane_Para[1]
-                                + Map[i][j].Plane_Para[2]*Map[i][j].Plane_Para[2]) + Map[i][j].Flatness;
+                                + Map[i][j].Roughness;
                     }
+
+                    Map[i][j].Roughness = Map[i][j].Roughness/sqrt(Map[i][j].Plane_Para[0]*Map[i][j].Plane_Para[0] + Map[i][j].Plane_Para[1]*Map[i][j].Plane_Para[1]
+                            + Map[i][j].Plane_Para[2]*Map[i][j].Plane_Para[2]);
                 }
             }
         }
@@ -161,7 +157,6 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             }
 
         }
-
 
         std::stringstream out;
         out<<frames_num;
