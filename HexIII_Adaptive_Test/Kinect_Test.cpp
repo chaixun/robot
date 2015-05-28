@@ -99,39 +99,44 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         {
             for(int j = 0; j < 120; j++)
             {
+
                 int num = Map[i][j].pointcloud.size();
-                double A[num][3];
-                double b[num][1];
 
-                for(int i = 0; i < num; i++)
+                if(num >= 1)
                 {
-                    A[i][0] = Map[i][j].pointcloud.at(i).x;
-                    A[i][1] = Map[i][j].pointcloud.at(i).y;
-                    A[i][2] = Map[i][j].pointcloud.at(i).z;
-                    b[i][0] = 1;
-                }
-                lapack_int info;
+                    double A[num][3];
+                    double b[num][1];
 
-                info =  LAPACKE_dgels(LAPACK_ROW_MAJOR,'N',num,3,1,*A,3,*b,1);
-                if(*b[0] < 0)
-                {
-                    for (int i = 0; i < 4; i++)
+                    for(int m = 0; m < num; m++)
                     {
-                        *b[i] = -*b[i];
+                        A[m][0] = Map[i][j].pointcloud.at(m).x;
+                        A[m][1] = Map[i][j].pointcloud.at(m).y;
+                        A[m][2] = Map[i][j].pointcloud.at(m).z;
+                        b[m][0] = 1;
                     }
-                }
-                Map[i][j].Plane_Para[0] = *b[0];
-                Map[i][j].Plane_Para[1] = *b[1];
-                Map[i][j].Plane_Para[2] = *b[2];
-                Map[i][j].Plane_Para[3] = -*b[3];
+                    lapack_int info;
 
-                for(int i = 0; i < num; i++)
-                {
-                    Map[i][j].Flatness = abs(Map[i][j].Plane_Para[0]*Map[i][j].pointcloud.at(i).x +
-                            Map[i][j].Plane_Para[1]*Map[i][j].pointcloud.at(i).y +
-                            Map[i][j].Plane_Para[2]*Map[i][j].pointcloud.at(i).z + Map[i][j].Plane_Para[3])
-                            /sqrt(Map[i][j].Plane_Para[0]*Map[i][j].Plane_Para[0] + Map[i][j].Plane_Para[1]*Map[i][j].Plane_Para[1]
-                            + Map[i][j].Plane_Para[2]*Map[i][j].Plane_Para[2]) + Map[i][j].Flatness;
+                    info =  LAPACKE_dgels(LAPACK_ROW_MAJOR,'N',num,3,1,*A,3,*b,1);
+                    if(*b[0] < 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            *b[k] = -*b[k];
+                        }
+                    }
+                    Map[i][j].Plane_Para[0] = *b[0];
+                    Map[i][j].Plane_Para[1] = *b[1];
+                    Map[i][j].Plane_Para[2] = *b[2];
+                    Map[i][j].Plane_Para[3] = -*b[3];
+
+                    for(int n = 0; n < num; n++)
+                    {
+                        Map[i][j].Flatness = abs(Map[i][j].Plane_Para[0]*Map[i][j].pointcloud.at(n).x +
+                                Map[i][j].Plane_Para[1]*Map[i][j].pointcloud.at(n).y +
+                                Map[i][j].Plane_Para[2]*Map[i][j].pointcloud.at(n).z + Map[i][j].Plane_Para[3])
+                                /sqrt(Map[i][j].Plane_Para[0]*Map[i][j].Plane_Para[0] + Map[i][j].Plane_Para[1]*Map[i][j].Plane_Para[1]
+                                + Map[i][j].Plane_Para[2]*Map[i][j].Plane_Para[2]) + Map[i][j].Flatness;
+                    }
                 }
             }
         }

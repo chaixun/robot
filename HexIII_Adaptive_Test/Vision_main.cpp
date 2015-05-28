@@ -32,29 +32,34 @@ int main()
     visionsensor.start();
 
 #if ARIS_PLATFORM_==_PLATFORM_LINUX_
-    //char RemoteIp[] = "192.168.1.100";
     char RemoteIp[] = "127.0.0.1";
 #endif
 
 
-    CONN VisualSystem;
-    pVisualSystem = &VisualSystem;
+//    while(1)
+//    {
+//        int i = 0;
+//        visionsensor.capture(&i);
+//    }
 
 
-    /*注册所有的消息函数*/
-    Aris::Core::RegisterMsgCallback(VisualSystemDataNeeded, OnVisualSystemDataNeeded);
-    Aris::Core::RegisterMsgCallback(VisualSystemLost, OnVisualSystemLost);
+        CONN VisualSystem;
+        pVisualSystem = &VisualSystem;
 
-    /*设置所有CONN类型的回调函数*/
-    VisualSystem.SetCallBackOnReceivedData(OnConnDataReceived);
-    VisualSystem.SetCallBackOnLoseConnection(OnConnectionLost);
 
-    /*连接服务器*/
-    VisualSystem.Connect(RemoteIp, "5691");
-    //VisualSystem.Connect(RemoteIp, "5688");
+        /*注册所有的消息函数*/
+        Aris::Core::RegisterMsgCallback(VisualSystemDataNeeded, OnVisualSystemDataNeeded);
+        Aris::Core::RegisterMsgCallback(VisualSystemLost, OnVisualSystemLost);
 
-    /*开始消息循环*/
-    Aris::Core::RunMsgLoop();
+        /*设置所有CONN类型的回调函数*/
+        VisualSystem.SetCallBackOnReceivedData(OnConnDataReceived);
+        VisualSystem.SetCallBackOnLoseConnection(OnConnectionLost);
+
+        /*连接服务器*/
+        VisualSystem.Connect(RemoteIp, "5691");
+
+        /*开始消息循环*/
+        Aris::Core::RunMsgLoop();
 }
 
 
