@@ -9,7 +9,7 @@ FUNCTION(PREPEND var prefix)
    SET(${var} "${listVar}" PARENT_SCOPE)
 ENDFUNCTION(PREPEND)
 
-project(HexIII_Vision)
+project(HexIII_Vision_Test)
 
 find_package(PCL 1.7 REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -53,11 +53,11 @@ set(ARIS_LINK_LIBS Aris_Plan Aris_DynKer Aris_ExpCal Aris_Control Aris_Core)
 
 set(ROBOTS_LINK_LIBS  HexapodIII)
 
-# build HexIII_Vision
+# build HexIII_Vision_Test
 set(SOURCE_FILES main.cpp Control.cpp Gait.cpp Server.cpp Robot_Vision.cpp)
-#PREPEND(FULL_SRC HexIII_Vision ${SOURCE_FILES})
-add_executable(HexIII_Vision ${SOURCE_FILES})
-target_link_libraries(HexIII_Vision ${ROBOTS_LINK_LIBS} ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
+#PREPEND(FULL_SRC HexIII_Vision_Test ${SOURCE_FILES})
+add_executable(HexIII_Vision_Test ${SOURCE_FILES})
+target_link_libraries(HexIII_Vision_Test ${ROBOTS_LINK_LIBS} ${ARIS_LINK_LIBS} ${LAPACK_LINK_LIBS} ${ETHERLAB_LINK_LIBS} ${XENOMAI_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 
 # build Control Client
 set(SOURCE_FILES Control_Client.cpp Client.cpp)
