@@ -1,7 +1,10 @@
 #include "Server.h"
 
 CONN ControlSystem, VisionSystem;
-double Gait_Calculated_From_Map[GAIT_ADAPTIVEWALK_LEN][GAIT_WIDTH];
+double Gait_StepUp__Map[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
+double Gait_StepDown__Map[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
+double Gait_Move_Map[GAIT_MOVE_MAP_LEN][GAIT_WIDTH];
+double Gait_Turn_Map[GAIT_TURN_MAP_LEN][GAIT_WIDTH];
 
 // CONN call back functions
 int On_CS_ConnectionReceived(Aris::Core::CONN *pConn, const char* addr,int port)
@@ -92,20 +95,15 @@ int OnGetControlCommand(MSG &msg)
         cs.NRT_PostMsg(data);
         break;
     case 14:
-        data.SetMsgID(BEGINDISCOVER);
-        cs.NRT_PostMsg(data);
-        break;
-    case 15:
-        data.SetMsgID(ENDDISCOVER);
-        cs.NRT_PostMsg(data);
-        break;
-    case 16:
-        CGait::IsWalkAdaptiveRegistered=true;
-        Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
-        break;
-    case 17:
-        CGait::IsWalkAvoidRegistered = true;
-        Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+    {
+        CGait::IsVisionWalk = true;
+        Vision_Msg visioncmd = Vision_UpperControl;
+        Aris::Core::MSG visionmsg;
+        visionmsg.SetMsgID(VS_Capture);
+        visionmsg.SetLength(sizeof(visioncmd));
+        visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+        PostMsg(visionmsg);
+    }
         break;
     default:
         cout<<"Do Not Get Validate CMD"<<endl;
@@ -159,97 +157,229 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
 {
     cout<<"receive data from visual system"<<endl;
 
-    if(data.GetLength() == 4)
+    switch (data.GetMsgID())
     {
-        int controlcmd;
-        memcpy(&controlcmd,data.GetDataAddress(),data.GetLength());
-
-        switch (controlcmd)
+    case 34:
+    {
+        cout<<"MOVE!"<<endl;
+        CGait::IsMove = true;
+        double *move_data = new double [data.GetLength()/sizeof(double)];
+        memcpy(move_data, data.GetDataAddress(), data.GetLength());
+        HexIII.RobotMove(move_data, *Gait_Move_Map);
+        for(int j=0;j<GAIT_MOVE_MAP_LEN;j++)
         {
-        case 1:
-        {
-            Aris::Core::MSG controldata;
-            controldata.SetMsgID(FORWARD);
-            cout<<"Send FORWARD Message to CS"<<endl;
-            cs.NRT_PostMsg(controldata);
+            for(int i=0;i<GAIT_WIDTH;i++)
+            {
+                CGait::GaitMoveMap[j][i]=-(int)(Gait_Move_Map[j][i]);
+            }
         }
-            break;
-        case 2:
-        {
-            Aris::Core::MSG controldata;
-            controldata.SetMsgID(BACKWARD);
-            cout<<"Send BACKWARD Message to CS"<<endl;
-            cs.NRT_PostMsg(controldata);
-        }
-            break;
-        case 3:
-        {
-            Aris::Core::MSG controldata;
-            controldata.SetMsgID(TURNLEFT);
-            cout<<"Send TURNLEFT Message to CS"<<endl;
-            cs.NRT_PostMsg(controldata);
-        }
-            break;
-        case 4:
-        {
-            Aris::Core::MSG controldata;
-            controldata.SetMsgID(TURNRIGHT);
-            cout<<"Send TURNRIGHT Message to CS"<<endl;
-            cs.NRT_PostMsg(controldata);
-        }
-            break;
-        default:
-            break;
-        }
+        Aris::Core::MSG controlcmd;
+        controlcmd.SetMsgID(MOVE);
+        cout<<"Send MOVE Message to CS"<<endl;
+        cs.NRT_PostMsg(controlcmd);
     }
-    else
+        break;
+    case 35:
     {
-        double *map = new double [data.GetLength()/sizeof(double)];
-        memcpy(map, data.GetDataAddress(), data.GetLength()  );
-
-        static double currentH[6],nextH[6];
-
-        memcpy(nextH,map,sizeof(nextH));
-
-        if(currentH[0] == 0&&currentH[1] == 0&&currentH[2] == 0&&currentH[3] == 0&&currentH[4] == 0&&currentH[5] == 0&&
-                nextH[0] == 0&&nextH[1] == 0&&nextH[2] == 0&&nextH[3] == 0&&nextH[4] == 0&&nextH[5] == 0)
+        cout<<"TURN!"<<endl;
+        CGait::IsTurn = true;
+        double *turn_data = new double [data.GetLength()/sizeof(double)];
+        memcpy(turn_data, data.GetDataAddress(), data.GetLength());
+        *turn_data = *turn_data/M_PI*180;
+        HexIII.RobotTurn(turn_data, *Gait_Turn_Map);
+        for(int j=0;j<GAIT_TURN_MAP_LEN;j++)
         {
-            delete[] map;
-            CGait::IsWalkAdaptiveRegistered = false;
+            for(int i=0;i<GAIT_WIDTH;i++)
+            {
+                CGait::GaitTurnMap[j][i]=-(int)(Gait_Turn_Map[j][i]);
+            }
+        }
+        Aris::Core::MSG controlcmd;
+        controlcmd.SetMsgID(TURN);
+        cout<<"Send TURN Message to CS"<<endl;
+        cs.NRT_PostMsg(controlcmd);
+    }
+        break;
+    case 36:
+    {
+        cout<<"STEP UP"<<endl;
+        CGait::IsStepUp = true;
+        double *map = new double [data.GetLength()/sizeof(double)];
+        memcpy(map, data.GetDataAddress(), data.GetLength());
 
-            Aris::Core::MSG controldata;
-            controldata.SetMsgID(ENDDISCOVER);
-            cout<<"Send ENDDISCOVER Message to CS"<<endl;
-            cs.NRT_PostMsg(controldata);
+        static double StepUP_currentH[6] = {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05};
+        static double StepUP_nextH[6];
+
+        memcpy(StepUP_nextH,map,sizeof(StepUP_nextH));
+
+        if(StepUP_currentH[0] == -0.85&&StepUP_currentH[1] == -0.85&&StepUP_currentH[2] == -0.85
+                &&StepUP_currentH[3] == -0.85&&StepUP_currentH[4] == -0.85&&StepUP_currentH[5] == -0.85
+                &&StepUP_nextH[0] == -0.85&&StepUP_nextH[1] == -0.85&&StepUP_nextH[2] == -0.85
+                &&StepUP_nextH[3] == -0.85&&StepUP_nextH[4] == -0.85&&StepUP_nextH[5] == -0.85)
+        {
+            cout<<"STEPUP FINISHED"<<endl;
+            CGait::IsStepUp = false;
+            delete[] map;
+            Vision_Msg visioncmd = Vision_UpperControl;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
         }
         else
         {
-            HexIII.RobotStepUp(currentH,nextH,*Gait_Calculated_From_Map);
+            double StepUpLen = 0.325;
 
-            memcpy(currentH,nextH,sizeof(nextH));
+            HexIII.RobotStepUp(&StepUpLen,StepUP_currentH,StepUP_nextH,*Gait_StepUp__Map);
+
+            memcpy(StepUP_currentH,StepUP_nextH,sizeof(StepUP_nextH));
 
             delete[] map;
 
-            for(int j=0;j<GAIT_ADAPTIVEWALK_LEN;j++)
+            for(int j=0;j<GAIT_STEPUPANDDOWN_LEN;j++)
             {
                 for(int i=0;i<GAIT_WIDTH;i++)
                 {
-                    CGait::GaitAdaptiveWalk[j][i]=-(int)(Gait_Calculated_From_Map[j][i]);
+                    CGait::GaitStepUpMap[j][i]=-(int)(Gait_StepUp__Map[j][i]);
                 }
             }
 
             Aris::Core::MSG controldata;
-            controldata.SetMsgID(WALKADAPTIVE);
+            controldata.SetMsgID(STEPUP);
             cs.NRT_PostMsg(controldata);
         }
+    }
+        break;
+    case 37:
+    {
+        if(data.GetLength() == sizeof(int))
+        {
+            Vision_Msg visioncmd = Vision_StepDown;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+        }
+        else
+        {
+            CGait::IsStepDown = true;
+            cout<<"STEP DOWN"<<endl;
+            double *map = new double [data.GetLength()/sizeof(double)];
+            memcpy(map, data.GetDataAddress(), data.GetLength());
+
+            static double StepDown_currentH[6] = {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85};
+            static double StepDown_nextH[6];
+
+            memcpy(StepDown_nextH,map,sizeof(StepDown_nextH));
+
+            if(StepDown_currentH[0] == -1.05&&StepDown_currentH[1] == -1.05&&StepDown_currentH[2] == -1.05
+                    &&StepDown_currentH[3] == -1.05&&StepDown_currentH[4] == -1.05&&StepDown_currentH[5] == -1.05
+                    &&StepDown_nextH[0] == -1.05&&StepDown_nextH[1] == -1.05&&StepDown_nextH[2] == -1.05
+                    &&StepDown_nextH[3] == -1.05&&StepDown_nextH[4] == -1.05&&StepDown_nextH[5] == -1.05)
+            {
+                delete[] map;
+                CGait::IsStepDown = false;
+                cout<<"STEPDOWN FINISHED!"<<endl;
+                cout<<"ENDISCOVER!"<<endl;
+                CGait::IsEndDiscoverStart = true;
+                Aris::Core::MSG controlcmd;
+                controlcmd.SetMsgID(ENDDISCOVER);
+                cout<<"Send ENDDISCOVER Message to CS"<<endl;
+                cs.NRT_PostMsg(controlcmd);
+            }
+            else
+            {
+                double StepDownLen = 0.325;
+
+                HexIII.RobotStepUp(&StepDownLen,StepDown_currentH,StepDown_nextH,*Gait_StepDown__Map);
+
+                memcpy(StepDown_currentH,StepDown_nextH,sizeof(StepDown_nextH));
+
+                delete[] map;
+
+                for(int j=0;j<GAIT_STEPUPANDDOWN_LEN;j++)
+                {
+                    for(int i=0;i<GAIT_WIDTH;i++)
+                    {
+                        CGait::GaitStepDownMap[j][i]=-(int)(Gait_StepDown__Map[j][i]);
+                    }
+                }
+
+                Aris::Core::MSG controldata;
+                controldata.SetMsgID(STEPDOWN);
+                cs.NRT_PostMsg(controldata);
+            }
+        }
+    }
+    case 38:
+    {
+        if(data.GetLength() == sizeof(int))
+        {
+            Vision_Msg visioncmd = Vision_StepOver;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+        }
+        else
+        {
+            cout<<"STEPOVER!"<<endl;
+            CGait::IsStepOver = true;
+            double *stepover_data = new double [data.GetLength()/sizeof(double)];
+            memcpy(stepover_data, data.GetDataAddress(), data.GetLength());
+
+            int count = int(stepover_data[0]);
+            if(count == 5)
+            {
+                CGait::IsStepOver = false;
+                Vision_Msg visioncmd = Vision_UpperControl;
+                Aris::Core::MSG visionmsg;
+                visionmsg.SetMsgID(VS_Capture);
+                visionmsg.SetLength(sizeof(visioncmd));
+                visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+                PostMsg(visionmsg);
+            }
+            else
+            {
+                double *move_data = stepover_data + 1;
+                HexIII.RobotMove(move_data, *Gait_Move_Map);
+                for(int j=0;j<GAIT_MOVE_MAP_LEN;j++)
+                {
+                    for(int i=0;i<GAIT_WIDTH;i++)
+                    {
+                        CGait::GaitMoveMap[j][i]=-(int)(Gait_Move_Map[j][i]);
+                    }
+                }
+                Aris::Core::MSG controlcmd;
+                controlcmd.SetMsgID(MOVE);
+                cout<<"Send MOVE Message to CS"<<endl;
+                cs.NRT_PostMsg(controlcmd);
+            }
+        }
+    }
+        break;
+    case 39:
+    {
+        cout<<"BEGINDISCOVER!"<<endl;
+        CGait::IsBeginDiscoverStart = true;
+        Aris::Core::MSG controlcmd;
+        controlcmd.SetMsgID(BEGINDISCOVER);
+        cout<<"Send BEGINDISCOVER Message to CS"<<endl;
+        cs.NRT_PostMsg(controlcmd);
+    }
+        break;
+    default:
+        break;
     }
     return 0;
 }
 
 int On_VS_ConnectionLost(Aris::Core::CONN *pConn)
 {
-    CGait::IsWalkAdaptiveRegistered = false;
-    CGait::IsWalkAvoidRegistered = false;
+    CGait::IsVisionWalk = false;
     PostMsg(Aris::Core::MSG(VS_Lost));
     return 0;
 }
@@ -266,22 +396,8 @@ int On_VS_Connected(Aris::Core::MSG &msg)
 
 int On_VS_Capture(Aris::Core::MSG &msg)
 {
-    if(CGait::IsWalkAdaptiveRegistered == true)
-    {
-        Vision_Msg vis_msg = Walk_Adaptive;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(vis_msg));
-        data.Copy(&vis_msg, sizeof(vis_msg));
-        VisionSystem.SendData(data);
-    }
-    else if(CGait::IsWalkAvoidRegistered == true)
-    {
-        Vision_Msg vis_msg = Walk_Avoid;
-        Aris::Core::MSG data;
-        data.SetLength(sizeof(vis_msg));
-        data.Copy(&vis_msg, sizeof(vis_msg));
-        VisionSystem.SendData(data);
-    }
+    Aris::Core::MSG visionmsg(msg);
+    VisionSystem.SendData(visionmsg);
     return 0;
 }
 
@@ -291,4 +407,7 @@ int On_VS_Lost(Aris::Core::MSG &msg)
     VisionSystem.StartServer("5691");
     return 0;
 }
+
+
+
 

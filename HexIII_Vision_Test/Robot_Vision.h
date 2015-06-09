@@ -14,10 +14,11 @@ class Vision_Robot:public Hexapod_Robot::ROBOT
 public:
     Vision_Robot();
     ~Vision_Robot();
+    int Robotbody(double *BodyTrans, double *BodyTransData);
     int RobotTurn(double *TurnAng, double *TurnData);
-    int RobotMove(double *MoveCurrentPos, double *MoveNextPos, double *MoveData);
-    int RobotStepUp(double *StepUpCurrentPos, double *StepUpNextPos, double *StepUpData);
-    int RobotStepDown(double *StepDownCurrentPos, double *StepDownNextPos, double *StepDownData);
+    int RobotMove(double *Move, double *MoveData);
+    int RobotStepUp(double *StepUpLen, double *StepUpCurrentPos, double *StepUpNextPos, double *StepUpData);
+    int RobotStepDown(double *StepDownLen, double *StepDownCurrentPos, double *StepDownNextPos, double *StepDownData);
 };
 
 #endif // ROBOT_VISION_H

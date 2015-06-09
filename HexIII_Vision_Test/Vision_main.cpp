@@ -45,6 +45,11 @@ int main()
     Aris::Core::RegisterMsgCallback(VisualSystemDataNeeded, OnVisualSystemDataNeeded);
     Aris::Core::RegisterMsgCallback(VisualSystemLost, OnVisualSystemLost);
 
+    Aris::Core::RegisterMsgCallback(NeedUpperControl, OnUpperControl);
+    Aris::Core::RegisterMsgCallback(NeedStepUp, OnStepUp);
+    Aris::Core::RegisterMsgCallback(NeedStepDown, OnStepDown);
+    Aris::Core::RegisterMsgCallback(NeedStepOver, OnStepOver);
+
     /*设置所有CONN类型的回调函数*/
     VisualSystem.SetCallBackOnReceivedData(OnConnDataReceived);
     VisualSystem.SetCallBackOnLoseConnection(OnConnectionLost);

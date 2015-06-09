@@ -1,11 +1,23 @@
 #include"Gait.h"
 
-bool CGait::IsWalkAdaptiveRegistered;
-bool CGait::IsWalkAdaptiveStepRegistered;
-bool CGait::IsWalkAvoidRegistered;
-bool CGait::IsWalkAvoidStepRegistered;
+bool CGait::IsMove;
+bool CGait::IsTurn;
+bool CGait::IsBeginDiscoverStart;
+bool CGait::IsBeginDiscoverEnd;
+bool CGait::IsEndDiscoverStart;
+bool CGait::IsEndDiscoverEnd;
+bool CGait::IsStepUp;
+bool CGait::IsStepUpstep;
+bool CGait::IsStepDown;
+bool CGait::IsStepDownstep;
+bool CGait::IsStepOver;
+bool CGait::IsStepOverstep;
+bool CGait::IsVisionWalk;
 
-int CGait::GaitAdaptiveWalk[GAIT_ADAPTIVEWALK_LEN][GAIT_WIDTH];
+int CGait::GaitMoveMap[GAIT_MOVE_MAP_LEN][GAIT_WIDTH];
+int CGait::GaitTurnMap[GAIT_TURN_MAP_LEN][GAIT_WIDTH];
+int CGait::GaitStepUpMap[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
+int CGait::GaitStepDownMap[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
 
 bool CGait::isReadytoSetGait[AXIS_NUMBER];
 EGAIT CGait::m_currentGait[AXIS_NUMBER];
@@ -54,10 +66,19 @@ CGait::CGait()
 {
     for(int i=1;i<AXIS_NUMBER;i++)
     {
-        CGait::IsWalkAdaptiveRegistered = false;
-        CGait::IsWalkAdaptiveStepRegistered = false;
-        CGait::IsWalkAvoidRegistered = false;
-        CGait::IsWalkAvoidStepRegistered = false;
+        CGait::IsMove = false;
+        CGait::IsTurn = false;
+        CGait::IsBeginDiscoverStart = false;
+        CGait::IsBeginDiscoverEnd = false;
+        CGait::IsEndDiscoverStart = false;
+        CGait::IsEndDiscoverEnd = false;
+        CGait::IsStepUp = false;
+        CGait::IsStepUpstep = false;
+        CGait::IsStepDown = false;
+        CGait::IsStepDownstep = false;
+        CGait::IsStepOver = false;
+        CGait::IsStepOverstep = false;
+        CGait::IsVisionWalk = false;
         CGait::m_currentGait[i]=EGAIT::GAIT_NULL;
         CGait::m_gaitState[i]=EGaitState::NONE;
     }
@@ -314,97 +335,6 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
                 }
                 break;
 
-            case GAIT_LEGUP:
-                if(p_gait[i]!=m_currentGait[i])
-                {
-                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
-                    m_gaitState[i]=EGaitState::GAIT_RUN;
-                    m_currentGait[i]=p_gait[i];
-                    m_gaitStartTime[i]=p_data.time;
-                    m_commandDataMapped[motorID].Position=GaitLegUp[0][motorID];
-
-                }
-                else
-                {
-                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
-                    m_commandDataMapped[motorID].Position=GaitLegUp[m_gaitCurrentIndex[i]][motorID];
-
-                    if(m_gaitCurrentIndex[i]==GAIT_LEGUP_LEN-1)
-                    {
-                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
-                        p_gait[i]=GAIT_STANDSTILL;
-
-                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
-                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
-                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
-                        m_gaitState[i]=EGaitState::GAIT_STOP;
-                    }
-                }
-                break;
-
-            case GAIT_TURN_LEFT:
-                if(p_gait[i]!=m_currentGait[i])
-                {
-                    rt_printf("driver %d: GAIT_TURNLEFT begin\n",i);
-                    m_gaitState[i]=EGaitState::GAIT_RUN;
-                    m_currentGait[i]=p_gait[i];
-                    m_gaitStartTime[i]=p_data.time;
-                    m_commandDataMapped[motorID].Position=GaitTurnLeft[0][motorID];
-                }
-                else
-                {
-                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
-                    m_commandDataMapped[motorID].Position=GaitTurnLeft[m_gaitCurrentIndex[i]][motorID];
-
-                    if(m_gaitCurrentIndex[i]==GAIT_TURN_LEN-1)
-                    {
-                        rt_printf("driver %d:GAIT_TURNLEFT will transfer to GAIT_STANDSTILL...\n",i);
-                        p_gait[i]=GAIT_STANDSTILL;
-
-                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
-                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
-                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
-                        m_gaitState[i]=EGaitState::GAIT_STOP;
-                        if(IsWalkAvoidRegistered == true)
-                        {
-                            IsWalkAvoidStepRegistered = true;
-                        }
-                    }
-                }
-                break;
-
-            case GAIT_TURN_RIGHT:
-
-                if(p_gait[i]!=m_currentGait[i])
-                {
-                    rt_printf("driver %d: GAIT_TURNRIGHT begin\n",i);
-                    m_gaitState[i]=EGaitState::GAIT_RUN;
-                    m_currentGait[i]=p_gait[i];
-                    m_gaitStartTime[i]=p_data.time;
-                    m_commandDataMapped[motorID].Position=GaitTurnRight[0][motorID];
-                }
-                else
-                {
-                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
-                    m_commandDataMapped[motorID].Position=GaitTurnRight[m_gaitCurrentIndex[i]][motorID];
-
-                    if(m_gaitCurrentIndex[i]==GAIT_TURN_LEN-1)
-                    {
-                        rt_printf("driver %d:GAIT_TURNRIGHT will transfer to GAIT_STANDSTILL...\n",i);
-                        p_gait[i]=GAIT_STANDSTILL;
-
-                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
-                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
-                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
-                        m_gaitState[i]=EGaitState::GAIT_STOP;
-                        if(IsWalkAvoidRegistered == true)
-                        {
-                            IsWalkAvoidStepRegistered = true;
-                        }
-                    }
-                }
-                break;
-
             case GAIT_MOVE:
 
                 if(p_gait[i]!=m_currentGait[i])
@@ -431,10 +361,6 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
                         m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
                         m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
                         m_gaitState[i]=EGaitState::GAIT_STOP;
-                        if(IsWalkAvoidRegistered == true)
-                        {
-                            IsWalkAvoidStepRegistered = true;
-                        }
                     }
                 }
                 break;
@@ -467,10 +393,148 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                         //only in this cycle, out side get true from IsGaitFinished()
                         m_gaitState[i]=EGaitState::GAIT_STOP;
-                        if(IsWalkAvoidRegistered == true)
-                        {
-                            IsWalkAvoidStepRegistered = true;
-                        }
+                    }
+                }
+                break;
+
+            case GAIT_TURN_LEFT:
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("driver %d: GAIT_TURNLEFT begin\n",i);
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitTurnLeft[0][motorID];
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitTurnLeft[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_TURN_LEN-1)
+                    {
+                        rt_printf("driver %d:GAIT_TURNLEFT will transfer to GAIT_STANDSTILL...\n",i);
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
+                    }
+                }
+                break;
+
+            case GAIT_TURN_RIGHT:
+
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("driver %d: GAIT_TURNRIGHT begin\n",i);
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitTurnRight[0][motorID];
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitTurnRight[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_TURN_LEN-1)
+                    {
+                        rt_printf("driver %d:GAIT_TURNRIGHT will transfer to GAIT_STANDSTILL...\n",i);
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
+                    }
+                }
+                break;
+
+            case GAIT_LEGUP:
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitLegUp[0][motorID];
+
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitLegUp[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_LEGUP_LEN-1)
+                    {
+                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
+                    }
+                }
+                break;
+
+            case GAIT_MOVE_MAP:
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitMoveMap[0][motorID];
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitMoveMap[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_MOVE_MAP_LEN-1)
+                    {
+                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
+                    }
+                    if(IsStepOver == true)
+                    {
+                       IsStepOverstep = true;
+                    }
+                }
+                break;
+
+            case GAIT_TURN_MAP:
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitTurnMap[0][motorID];
+
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitTurnMap[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_TURN_MAP_LEN-1)
+                    {
+                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
                     }
                 }
                 break;
@@ -503,6 +567,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                         //only in this cycle, out side get true from IsGaitFinished()
                         m_gaitState[i]=EGaitState::GAIT_STOP;
+                        CGait::IsBeginDiscoverEnd = true;
                     }
                 }
                 break;
@@ -535,29 +600,30 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                         //only in this cycle, out side get true from IsGaitFinished()
                         m_gaitState[i]=EGaitState::GAIT_STOP;
+                        CGait::IsEndDiscoverEnd = true;
                     }
                 }
                 break;
 
-            case GAIT_WALK_ADAPTIVE:
+            case GAIT_STEPUP_MAP:
                 if(p_gait[i]!=m_currentGait[i])
                 {
-                    rt_printf("GAIT_WALK_ADAPTIVE!!!\n");
+                    rt_printf("GAIT_END_DISCOVER!!!\n");
                     m_gaitState[i]=EGaitState::GAIT_RUN;
                     m_currentGait[i]=p_gait[i];
                     m_gaitStartTime[i]=p_data.time;
-                    m_commandDataMapped[motorID].Position=GaitAdaptiveWalk[0][motorID];
+                    m_commandDataMapped[motorID].Position=GaitStepUpMap[0][motorID];
 
-                    rt_printf("driver %d:Begin GAIT_WALK_ADAPTIVE...\n",i);
+                    rt_printf("driver %d:Begin GAIT_END_DISCOVER...\n",i);
                 }
                 else
                 {
                     m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
-                    m_commandDataMapped[motorID].Position=GaitAdaptiveWalk[m_gaitCurrentIndex[i]][motorID];
+                    m_commandDataMapped[motorID].Position=GaitStepUpMap[m_gaitCurrentIndex[i]][motorID];
 
-                    if(m_gaitCurrentIndex[i]==GAIT_ADAPTIVEWALK_LEN-1)
+                    if(m_gaitCurrentIndex[i]==GAIT_STEPUPANDDOWN_LEN-1)
                     {
-                        rt_printf("driver %d: GAIT_WALK_ADAPTIVE will transfer to GAIT_STANDSTILL...\n",i);
+                        rt_printf("driver %d: GAIT_END_DISCOVER will transfer to GAIT_STANDSTILL...\n",i);
 
                         p_gait[i]=GAIT_STANDSTILL;
 
@@ -568,9 +634,46 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
                         //only in this cycle, out side get true from IsGaitFinished()
                         m_gaitState[i]=EGaitState::GAIT_STOP;
 
-                        if(IsWalkAdaptiveRegistered == true)
+                        if(IsStepUp == true)
                         {
-                            IsWalkAdaptiveStepRegistered = true;
+                           IsStepUpstep = true;
+                        }
+                    }
+                }
+                break;
+
+            case GAIT_STEPDOWN_MAP:
+                if(p_gait[i]!=m_currentGait[i])
+                {
+                    rt_printf("GAIT_END_DISCOVER!!!\n");
+                    m_gaitState[i]=EGaitState::GAIT_RUN;
+                    m_currentGait[i]=p_gait[i];
+                    m_gaitStartTime[i]=p_data.time;
+                    m_commandDataMapped[motorID].Position=GaitStepDownMap[0][motorID];
+
+                    rt_printf("driver %d:Begin GAIT_END_DISCOVER...\n",i);
+                }
+                else
+                {
+                    m_gaitCurrentIndex[i]=(int)(p_data.time-m_gaitStartTime[i]);
+                    m_commandDataMapped[motorID].Position=GaitStepDownMap[m_gaitCurrentIndex[i]][motorID];
+
+                    if(m_gaitCurrentIndex[i]==GAIT_STEPUPANDDOWN_LEN-1)
+                    {
+                        rt_printf("driver %d: GAIT_END_DISCOVER will transfer to GAIT_STANDSTILL...\n",i);
+
+                        p_gait[i]=GAIT_STANDSTILL;
+
+                        m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
+                        m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
+                        m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
+
+                        //only in this cycle, out side get true from IsGaitFinished()
+                        m_gaitState[i]=EGaitState::GAIT_STOP;
+
+                        if(IsStepDown == true)
+                        {
+                           IsStepDownstep = true;
                         }
                     }
                 }

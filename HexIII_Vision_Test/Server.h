@@ -42,17 +42,22 @@ enum MACHINE_CMD
     TURNLEFT = 1011,
     TURNRIGHT = 1012,
     LEGUP = 1013,
-    BEGINDISCOVER = 1014,
-    ENDDISCOVER = 1015,
-    WALKADAPTIVE = 1016,
-    WALKAVOID = 1017,
+    MOVE = 1014,
+    TURN = 1015,
+    BEGINDISCOVER = 1016,
+    ENDDISCOVER = 1017,
+    STEPUP = 1018,
+    STEPDOWN = 1019,
+    STEPOVER = 1020,
 };
 
 
 enum Vision_Msg
 {
-    Walk_Adaptive = 60,
-    Walk_Avoid = 61,
+    Vision_UpperControl = 60,
+    Vision_StepUp = 61,
+    Vision_StepDown = 62,
+    Vision_StepOver = 63,
 };
 
 

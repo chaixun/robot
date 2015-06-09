@@ -212,6 +212,26 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             }
         }
         break;
+    case MOVE:
+        if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_MOVE_MAP;
+            }
+        }
+        break;
+    case TURN:
+        if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_TURN_MAP;
+            }
+        }
+        break;
     case BEGINDISCOVER:
         if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
         {
@@ -232,39 +252,110 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             }
         }
         break;
-    case WALKADAPTIVE:
-        if(gait.m_gaitState[MapAbsToPhy[0]]==GAIT_STOP)
+    case STEPUP:
+        if(gait.m_gaitState[MapAbsToPhy[0]]== GAIT_STOP)
         {
             for(int i=0;i<18;i++)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
-                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_WALK_ADAPTIVE;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_STEPUP_MAP;
+            }
+        }
+        break;
+    case STEPDOWN:
+        if(gait.m_gaitState[MapAbsToPhy[0]]== GAIT_STOP)
+        {
+            for(int i=0;i<18;i++)
+            {
+                machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
+                gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_STEPDOWN_MAP;
             }
         }
         break;
     default:
-        //DO NOTHING, CMD AND TRAJ WILL KEEP STILL
         break;
     }
-    // gait.IfReadytoSetGait(machineData.isMotorHomed[0]);
-    // rt_printf("driver 0 gaitcmd:%d\n",gaitcmd[0]);
 
     gait.RunGait(gaitcmd,machineData);
 
     if(gait.IsGaitFinished())
     {
-        if (CGait::IsWalkAdaptiveRegistered == true && CGait::IsWalkAdaptiveStepRegistered == true)
+        if(CGait::IsMove == true)
         {
-            rt_printf("WALK AVOID STEP FINISHED!!!!!\n");
-            CGait::IsWalkAdaptiveStepRegistered = false;
-            Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+            CGait::IsMove = false;
+            Vision_Msg visioncmd = Vision_UpperControl;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
         }
 
-        if (CGait::IsWalkAvoidRegistered == true && CGait::IsWalkAvoidStepRegistered == true)
+        if(CGait::IsTurn == true)
         {
-            rt_printf("WALK AVOID STEP FINISHED!!!!!\n");
-            CGait::IsWalkAvoidStepRegistered = false;
-            Aris::Core::PostMsg(Aris::Core::MSG(VS_Capture));
+            CGait::IsTurn = false;
+            Vision_Msg visioncmd = Vision_UpperControl;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+        }
+
+        if(CGait::IsBeginDiscoverStart == true && CGait::IsBeginDiscoverEnd == true)
+        {
+            Vision_Msg visioncmd = Vision_StepUp;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+            CGait::IsBeginDiscoverStart = false;
+            CGait::IsBeginDiscoverStart = false;
+        }
+
+        if(CGait::IsEndDiscoverStart == true && CGait::IsEndDiscoverEnd == true)
+        {
+            Vision_Msg visioncmd = Vision_UpperControl;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+            CGait::IsEndDiscoverStart = false;
+            CGait::IsEndDiscoverStart = false;
+        }
+
+        if(CGait::IsStepUp == true&&CGait::IsStepUpstep == true)
+        {
+            CGait::IsStepUpstep = false;
+            Vision_Msg visioncmd = Vision_StepUp;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+        }
+
+        if(CGait::IsStepDown == true&&CGait::IsStepDownstep == true)
+        {
+            CGait::IsStepDownstep = false;
+            Vision_Msg visioncmd = Vision_StepDown;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
+        }
+        if(CGait::IsStepOver == true&&CGait::IsStepOverstep == true)
+        {
+            CGait::IsStepOverstep = false;
+            Vision_Msg visioncmd = Vision_StepOver;
+            Aris::Core::MSG visionmsg;
+            visionmsg.SetMsgID(VS_Capture);
+            visionmsg.SetLength(sizeof(visioncmd));
+            visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+            PostMsg(visionmsg);
         }
     }
 

@@ -18,6 +18,14 @@ enum Command
     TurnRight = 4,
 };
 
+enum TerrainType
+{
+    StepUpTerrain = 20,
+    StepDownTerrain = 21,
+    DitchTerrain = 22,
+    FlatTerrain = 23,
+    ObstacleTerrain = 24,
+};
 
 class Kinect
 {
@@ -32,6 +40,16 @@ public:
     static double CurrentHeight[4];
     static int ControlCommand;
     static bool IsCaptureEnd;
+    static int leftedge_z;
+    static int rightedge_z;
+    static int near_leftedge_z;
+    static int near_rightedge_z;
+    static int far_leftedge_z;
+    static int far_rightedge_z;
+    static int leftedge_x;
+    static int rightedge_x;
+    static int Terrain;
+
 private:
     pcl::OpenNIGrabber* interface;
     int frames_num;

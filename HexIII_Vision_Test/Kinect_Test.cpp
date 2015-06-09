@@ -3,12 +3,30 @@
 double Kinect::CurrentHeight[4];
 bool Kinect::IsCaptureEnd;
 int Kinect::ControlCommand;
+int Kinect::leftedge_z;
+int Kinect::rightedge_z;
+int Kinect::near_leftedge_z;
+int Kinect::near_rightedge_z;
+int Kinect::far_leftedge_z;
+int Kinect::far_rightedge_z;
+int Kinect::leftedge_x;
+int Kinect::rightedge_x;
+int Kinect::Terrain;
 
 Kinect::Kinect():interface(new pcl::OpenNIGrabber())
 {
     IsCapture = false;
     IsCaptureEnd = false;
     frames_num = 0;
+    leftedge_z = 0;
+    rightedge_z = 0;
+    near_leftedge_z = 0;
+    near_rightedge_z = 0;
+    far_leftedge_z = 0;
+    far_rightedge_z = 0;
+    leftedge_x = 0;
+    rightedge_x = 0;
+    Terrain = FlatTerrain;
 }
 Kinect::~Kinect()
 {
@@ -34,7 +52,9 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 {
     if (IsCapture == true)
     {
-        bool Obstacle = false;
+        bool positive = false;
+        bool negative = false;
+        //bool Obstacle = false;
         IsCapture = false;
         pcl::PointCloud<pcl::PointXYZ>::Ptr SensorPoint(new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -48,9 +68,10 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         pcl::PointCloud<pcl::PointXYZ>::Ptr RobotPoint(new pcl::PointCloud<pcl::PointXYZ>);
         Eigen::Matrix4f transformation2;
         transformation2 << 0.9995, 0.0134, -0.0273, 0.0224,
-                -0.0304, 0.5120, -0.8584, 0.2026+0.85+0.038 + 0.2,
+                -0.0304, 0.5120, -0.8584, 0.2026 + 0.038,
                 0.0025, 0.8589, 0.5122, 0.5733,
                 0, 0, 0, 1;
+        // 0.2026 + 0.85 + 0.038 + 0.2
         //                transformation2 << 1, 0, 0, 0,
         //                        0, 1, 0, 0.73,
         //                        0, 0, 1, 0,
@@ -59,6 +80,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
 
         //Mapping GridMap
+
         Eigen::MatrixXf GridMap = Eigen::MatrixXf::Zero(120,120);
         Eigen::MatrixXf GridNum = Eigen::MatrixXf::Zero(120,120);
         for (size_t i = 0;i < RobotPoint->points.size(); ++i)
@@ -66,11 +88,6 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             if(RobotPoint->points[i].x>-1.5&&RobotPoint->points[i].x<1.5&&
                     RobotPoint->points[i].z>0&&RobotPoint->points[i].z<3)
             {
-                if(RobotPoint->points[i].y<0)
-                {
-                    RobotPoint->points[i].y = 0;
-                }
-
                 int m, n;
                 n = floor(RobotPoint->points[i].x/0.025) + 60;
                 m = floor(RobotPoint->points[i].z/0.025);
@@ -88,74 +105,94 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         */
             }
         }
+
+        //Judge Terrain
+
+        for(int k = 26; k <= 50; k++)
+        {
+            if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.07)
+            {
+                positive = true;
+            }
+
+            if(GridMap(k + 1, 60) - GridMap(k, 60) < -0.07)
+            {
+                negative = true;
+            }
+        }
+
+        if(positive == true&& negative == false)
+        {
+            Terrain = StepUpTerrain;
+        }
+        if(positive == false&& negative == true)
+        {
+            Terrain = StepDownTerrain;
+        }
+        if(positive == true&& negative == true)
+        {
+            Terrain = DitchTerrain;
+        }
+        if(positive == false&& negative == false)
+        {
+            Terrain = FlatTerrain;
+        }
+
+        //Find Edge
+
+        /*Find Edge Along Z*/
+        for(int m = 26; m <= 50; m++)
+        {
+            if(abs(GridMap(m+1, 48)-GridMap(m, 48)) > 0.07)
+            {
+                rightedge_z = m + 1;
+            }
+
+            if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.07)
+            {
+                leftedge_z = m + 1;
+            }
+
+            if(Terrain == DitchTerrain)
+            {
+                if(GridMap(m+1, 48)-GridMap(m, 48) < -0.07)
+                {
+                    near_rightedge_z = m;
+                }
+                if(GridMap(m+1, 48)-GridMap(m, 48) > 0.07)
+                {
+                    far_rightedge_z = m + 1;
+                }
+                if(GridMap(m+1, 72)-GridMap(m, 72) < -0.07)
+                {
+                    near_leftedge_z = m;
+                }
+                if(GridMap(m+1, 72)-GridMap(m, 72) > 0.07)
+                {
+                    far_leftedge_z = m + 1;
+                }
+            }
+        }
+
+        /*Find Edge Along X*/
+        for(int k = 0; k < 60; k++)
+        {
+            if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.08 )
+            {
+                rightedge_x = 60 - k;
+            }
+            if(abs(GridMap(39, 60+k+1) - GridMap(39, 60+k)) > 0.08 )
+            {
+                leftedge_x = 60 + k;
+            }
+        }
+
         //Judge Command
 
         CurrentHeight[0] = (GridMap(39,43) + GridMap(39,44) + GridMap(40,43) + GridMap(40,44))/4;
         CurrentHeight[1] = (GridMap(39,48) + GridMap(39,49) + GridMap(40,48) + GridMap(40,49))/4;
         CurrentHeight[2] = (GridMap(39,78) + GridMap(39,79) + GridMap(40,78) + GridMap(40,79))/4;
         CurrentHeight[3] = (GridMap(39,72) + GridMap(39,73) + GridMap(40,72) + GridMap(40,73))/4;
-
-        for(int i = 0;i < 4; i++)
-        {
-            if(CurrentHeight[i] > 0.23)
-            {
-                CurrentHeight[i] = 0.23;
-            }
-
-            if(CurrentHeight[i] < 0)
-            {
-                CurrentHeight[i] = 0;
-            }
-
-            if(CurrentHeight[i] < 0.06)
-            {
-                CurrentHeight[i] = 0;
-            }
-        }
-        float LeftHeight = 0, RightHeight = 0;
-
-        for(int i=40; i<=54; i++)
-        {
-            for(int j = 41;j<=60;j++)
-            {
-                if(GridMap(i,j)>=0.225)
-                {
-                    Obstacle = true;
-                    RightHeight = RightHeight + GridMap(i,j);
-                }
-            }
-        }
-
-        for(int i=40; i<=54; i++)
-        {
-            for(int j = 61;j<=80;j++)
-            {
-                if(GridMap(i,j)>=0.225)
-                {
-                    Obstacle = true;
-                    LeftHeight = LeftHeight + GridMap(i,j);
-                }
-            }
-        }
-
-        if(Obstacle == false)
-        {
-            ControlCommand = MoveBackWard;
-            //cout<<"Send Move Forward!!!"<<endl;
-        }
-        else
-        {
-            if(LeftHeight>=RightHeight)
-            {
-                ControlCommand = TurnRight;
-                //cout<<"Send Turn Right!!!"<<endl;
-            }
-            else
-            {
-                ControlCommand = TurnLeft;
-                //cout<<"Send Turn Left!!!"<<endl;
-            }
-        }
 
         std::stringstream out;
         out<<frames_num;

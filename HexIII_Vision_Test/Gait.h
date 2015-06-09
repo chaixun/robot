@@ -15,7 +15,10 @@ using namespace std;
 #define GAIT_LEGUP_LEN 12201
 #define GAIT_TURN_LEN 6001
 
-#define GAIT_ADAPTIVEWALK_LEN 12000
+#define GAIT_MOVE_MAP_LEN 5000
+#define GAIT_TURN_MAP_LEN 6001
+
+#define GAIT_STEPUPANDDOWN_LEN 12000
 
 #define GAIT_DISCOVER_LEN 2500
 
@@ -39,9 +42,12 @@ enum EGAIT
     GAIT_TURN_LEFT=5,
     GAIT_TURN_RIGHT=6,
     GAIT_LEGUP = 7,
-    GAIT_WALK_ADAPTIVE = 8,
-    GAIT_BEGIN_DISCOVER = 9,
-    GAIT_END_DISCOVER = 10,
+    GAIT_MOVE_MAP = 8,
+    GAIT_TURN_MAP = 9,
+    GAIT_BEGIN_DISCOVER = 10,
+    GAIT_END_DISCOVER = 11,
+    GAIT_STEPUP_MAP = 12,
+    GAIT_STEPDOWN_MAP = 13,
     GAIT_HOME,
 };
 
@@ -56,13 +62,25 @@ public:
     static bool IsGaitFinished();
     //new
     static void  IfReadytoSetGait(bool b, int driverID);
-    static bool IsWalkAdaptiveRegistered;
-    static bool IsWalkAdaptiveStepRegistered;
-    static bool IsWalkAvoidRegistered;
-    static bool IsWalkAvoidStepRegistered;
+    static bool IsMove;
+    static bool IsTurn;
+    static bool IsBeginDiscoverStart;
+    static bool IsBeginDiscoverEnd;
+    static bool IsEndDiscoverStart;
+    static bool IsEndDiscoverEnd;
+    static bool IsStepUp;
+    static bool IsStepUpstep;
+    static bool IsStepDown;
+    static bool IsStepDownstep;
+    static bool IsStepOver;
+    static bool IsStepOverstep;
+    static bool IsVisionWalk;
     static EGaitState m_gaitState[AXIS_NUMBER];
 
-    static int GaitAdaptiveWalk[GAIT_ADAPTIVEWALK_LEN][GAIT_WIDTH];
+    static int GaitMoveMap[GAIT_MOVE_MAP_LEN][GAIT_WIDTH];
+    static int GaitTurnMap[GAIT_TURN_MAP_LEN][GAIT_WIDTH];
+    static int GaitStepUpMap[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
+    static int GaitStepDownMap[GAIT_STEPUPANDDOWN_LEN][GAIT_WIDTH];
 
 
 private:
