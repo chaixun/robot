@@ -72,10 +72,10 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
                 0.0025, 0.8589, 0.5122, 0.5733,
                 0, 0, 0, 1;
         // 0.2026 + 0.85 + 0.038 + 0.2
-        //                transformation2 << 1, 0, 0, 0,
-        //                        0, 1, 0, 0.73,
-        //                        0, 0, 1, 0,
-        //                        0, 0, 0, 1;
+        //        transformation2 << 0.9995, 0.0134, -0.0273, 0,
+        //                -0.0304, 0.5120, -0.8584, 0,
+        //                0.0025, 0.8589, 0.5122, 0,
+        //                0, 0, 0, 1;
         pcl::transformPointCloud(*SensorPoint,*RobotPoint,transformation2);
 
 
@@ -110,12 +110,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         for(int k = 26; k <= 50; k++)
         {
-            if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.07)
+            if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.05)
             {
                 positive = true;
             }
 
-            if(GridMap(k + 1, 60) - GridMap(k, 60) < -0.07)
+            if(GridMap(k + 1, 60) - GridMap(k, 60) < -0.05)
             {
                 negative = true;
             }
@@ -175,7 +175,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         }
 
         /*Find Edge Along X*/
-        for(int k = 0; k < 60; k++)
+        for(int k = 0; k < 58; k++)
         {
             if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.08 )
             {

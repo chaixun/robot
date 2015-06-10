@@ -31,6 +31,7 @@ int OnVisualSystemDataNeeded(Aris::Core::MSG &msg)
     {
     case 60:
     {
+        cout<<"NeedUpperControl"<<endl;
         Aris::Core::MSG msgformcontrol;
         msgformcontrol.SetMsgID(NeedUpperControl);
         Aris::Core::PostMsg(msgformcontrol);
@@ -38,6 +39,7 @@ int OnVisualSystemDataNeeded(Aris::Core::MSG &msg)
         break;
     case 61:
     {
+        cout<<"NeedStepUp"<<endl;
         Aris::Core::MSG msgformcontrol;
         msgformcontrol.SetMsgID(NeedStepUp);
         Aris::Core::PostMsg(msgformcontrol);
@@ -45,6 +47,7 @@ int OnVisualSystemDataNeeded(Aris::Core::MSG &msg)
         break;
     case 62:
     {
+        cout<<"NeedStepDown"<<endl;
         Aris::Core::MSG msgformcontrol;
         msgformcontrol.SetMsgID(NeedStepDown);
         Aris::Core::PostMsg(msgformcontrol);
@@ -52,6 +55,7 @@ int OnVisualSystemDataNeeded(Aris::Core::MSG &msg)
         break;
     case 63:
     {
+        cout<<"NeedStepOver"<<endl;
         Aris::Core::MSG msgformcontrol;
         msgformcontrol.SetMsgID(NeedStepOver);
         Aris::Core::PostMsg(msgformcontrol);
@@ -98,11 +102,15 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 if(abs(Kinect::leftedge_z - Kinect::rightedge_z) >= 1)
                 {
                     /*max turn*/
-                    double turn_ang = atan((Kinect::rightedge_z - Kinect::leftedge_z)/24);
-                    if(abs(turn_ang) > 35/180*M_PI)
+                    cout<<"LEFT: "<<Kinect::leftedge_z<<endl;
+                    cout<<"RIGHT: "<<Kinect::rightedge_z<<endl;
+                    double turn_ang = atan2((Kinect::rightedge_z - Kinect::leftedge_z), 24);
+                    cout<<turn_ang<<endl;
+                    if(abs(turn_ang) > 35*M_PI/180)
                     {
-                        turn_ang = turn_ang > 0? 35/180*M_PI : -35.180*M_PI;
+                        turn_ang = turn_ang > 0? 35*M_PI/180 : -35*M_PI/180;
                     }
+                    cout<<"NEEDS TURN: "<<turn_ang*180/M_PI<<endl;
                     Aris::Core::MSG turn_msg;
                     turn_msg.SetMsgID(Turn);
                     turn_msg.SetLength(sizeof(double));
@@ -112,16 +120,19 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 else
                 {
                     /*Move Closer*/
+                    cout<<"EDGE Z: "<<Kinect::leftedge_z<<endl;
                     if((Kinect::leftedge_z < 29) || (Kinect::leftedge_z > 31))
                     {
                         /*max walk*/
                         double movez_data[3] = {0, 0, 0};
                         movez_data[2] = (Kinect::leftedge_z - 30)*0.025;
+                        movez_data[2] = movez_data[2] > 0.5? 0.5 : movez_data[2];
                         Aris::Core::MSG movez_msg;
                         movez_msg.SetMsgID(Move);
                         movez_msg.SetLength(3*sizeof(double));
                         movez_msg.Copy(movez_data, sizeof(movez_data));
                         pVisualSystem->SendData(movez_msg);
+                        cout<<"MOVE ALONG Z "<<movez_data[2]<<endl;
                     }
                     else
                     {
@@ -139,6 +150,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                                 movexr_msg.SetLength(3*sizeof(double));
                                 movexr_msg.Copy(movexr_data,sizeof(movexr_data));
                                 pVisualSystem->SendData(movexr_msg);
+                                cout<<"MOVE RIGHT: "<<movexr_data[0]<<endl;
                             }
                             else
                             {
@@ -150,6 +162,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                                 movexl_msg.SetLength(3*sizeof(double));
                                 movexl_msg.Copy(movexl_data,sizeof(movexl_data));
                                 pVisualSystem->SendData(movexl_msg);
+                                cout<<"MOVE LEFT: "<<movexl_data[0]<<endl;
                             }
                         }
                         else
@@ -158,6 +171,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                             {
                             case StepUpTerrain:
                             {
+                                cout<<"STEPUP TERRAIN"<<endl;
                                 Aris::Core::MSG control_msg;
                                 int i = 0;
                                 control_msg.SetMsgID(BeginDiscover);
@@ -168,6 +182,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                                 break;
                             case StepDownTerrain:
                             {
+                                cout<<"STEPDOWN TERRAIN"<<endl;
                                 Aris::Core::MSG control_msg;
                                 int i = 0;
                                 control_msg.SetMsgID(StepDown);
@@ -178,6 +193,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                                 break;
                             case DitchTerrain:
                             {
+                                cout<<"DITCH TERRAIN"<<endl;
                                 Aris::Core::MSG control_msg;
                                 int i = 0;
                                 control_msg.SetMsgID(StepOver);
@@ -195,6 +211,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
             }
             else
             {
+                cout<<"FLAT TERRAIN MOVE"<<endl;
                 double move_data[3] = {0, 0, 0};
                 move_data[2] = 0.325;
                 Aris::Core::MSG move_msg;
@@ -225,9 +242,19 @@ int OnStepUp(Aris::Core::MSG &msg)
         {
             for(int m = 0; m < 4; m++)
             {
-                if(abs(Kinect::CurrentHeight[i] + 0.85) < 0.05 )
+                if(abs(Kinect::CurrentHeight[m] + 0.85) < 0.05 )
                 {
-                    Kinect::CurrentHeight[i] = -0.85;
+                    Kinect::CurrentHeight[m] = -0.85;
+                }
+
+                if(Kinect::CurrentHeight[m] > -0.85 )
+                {
+                    Kinect::CurrentHeight[m] = -0.85;
+                }
+
+                if(Kinect::CurrentHeight[m] < -1.05 )
+                {
+                    Kinect::CurrentHeight[m] = -1.05;
                 }
             }
             StepUp_Foot_Height[(4+i)%5][0] = Kinect::CurrentHeight[1];
@@ -272,10 +299,21 @@ int OnStepDown(Aris::Core::MSG &msg)
         {
             for(int m = 0; m < 4; m++)
             {
-                if(abs(Kinect::CurrentHeight[i] + 1.05) < 0.05 )
+                if(abs(Kinect::CurrentHeight[m] + 1.05) < 0.05 )
                 {
-                    Kinect::CurrentHeight[i] = -1.05;
+                    Kinect::CurrentHeight[m] = -1.05;
                 }
+
+                if(Kinect::CurrentHeight[m] < -1.05 )
+                {
+                    Kinect::CurrentHeight[m] = -1.05;
+                }
+
+                if(Kinect::CurrentHeight[m] > -0.85 )
+                {
+                    Kinect::CurrentHeight[m] = -0.85;
+                }
+
             }
 
             StepDown_Foot_Height[(4+i)%5][0] = Kinect::CurrentHeight[1];

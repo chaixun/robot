@@ -1,7 +1,9 @@
 #include"Gait.h"
 
 bool CGait::IsMove;
+bool CGait::IsMoveEnd;
 bool CGait::IsTurn;
+bool CGait::IsTurnEnd;
 bool CGait::IsBeginDiscoverStart;
 bool CGait::IsBeginDiscoverEnd;
 bool CGait::IsEndDiscoverStart;
@@ -67,7 +69,9 @@ CGait::CGait()
     for(int i=1;i<AXIS_NUMBER;i++)
     {
         CGait::IsMove = false;
+        CGait::IsMoveEnd = false;
         CGait::IsTurn = false;
+        CGait::IsTurnEnd = false;
         CGait::IsBeginDiscoverStart = false;
         CGait::IsBeginDiscoverEnd = false;
         CGait::IsEndDiscoverStart = false;
@@ -483,7 +487,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
             case GAIT_MOVE_MAP:
                 if(p_gait[i]!=m_currentGait[i])
                 {
-                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
+                    rt_printf("driver %d: GAIT_MOVE_MAP begin\n",i);
                     m_gaitState[i]=EGaitState::GAIT_RUN;
                     m_currentGait[i]=p_gait[i];
                     m_gaitStartTime[i]=p_data.time;
@@ -496,7 +500,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                     if(m_gaitCurrentIndex[i]==GAIT_MOVE_MAP_LEN-1)
                     {
-                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
+                        rt_printf("driver %d:GAIT_MOVE_MAP will transfer to GAIT_STANDSTILL...\n",i);
                         p_gait[i]=GAIT_STANDSTILL;
 
                         m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
@@ -504,9 +508,14 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
                         m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
                         m_gaitState[i]=EGaitState::GAIT_STOP;
                     }
+                    if(IsMove == true)
+                    {
+                        IsMoveEnd = true;
+                    }
+
                     if(IsStepOver == true)
                     {
-                       IsStepOverstep = true;
+                        IsStepOverstep = true;
                     }
                 }
                 break;
@@ -514,7 +523,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
             case GAIT_TURN_MAP:
                 if(p_gait[i]!=m_currentGait[i])
                 {
-                    rt_printf("driver %d: GAIT_LEGUP begin\n",i);
+                    rt_printf("driver %d: GAIT_TURN_MAP begin\n",i);
                     m_gaitState[i]=EGaitState::GAIT_RUN;
                     m_currentGait[i]=p_gait[i];
                     m_gaitStartTime[i]=p_data.time;
@@ -528,13 +537,17 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                     if(m_gaitCurrentIndex[i]==GAIT_TURN_MAP_LEN-1)
                     {
-                        rt_printf("driver %d:GAIT_LEGUP will transfer to GAIT_STANDSTILL...\n",i);
+                        rt_printf("driver %d:GAIT_TURN_MAP will transfer to GAIT_STANDSTILL...\n",i);
                         p_gait[i]=GAIT_STANDSTILL;
 
                         m_standStillData[motorID].Position=m_feedbackDataMapped[motorID].Position;
                         m_standStillData[motorID].Velocity=m_feedbackDataMapped[motorID].Velocity;
                         m_standStillData[motorID].Torque=m_feedbackDataMapped[motorID].Torque;
                         m_gaitState[i]=EGaitState::GAIT_STOP;
+                    }
+                    if(IsTurn == true)
+                    {
+                        IsTurnEnd = true;
                     }
                 }
                 break;
@@ -608,13 +621,13 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
             case GAIT_STEPUP_MAP:
                 if(p_gait[i]!=m_currentGait[i])
                 {
-                    rt_printf("GAIT_END_DISCOVER!!!\n");
+                    rt_printf("GAIT_STEPUP_MAP!!!\n");
                     m_gaitState[i]=EGaitState::GAIT_RUN;
                     m_currentGait[i]=p_gait[i];
                     m_gaitStartTime[i]=p_data.time;
                     m_commandDataMapped[motorID].Position=GaitStepUpMap[0][motorID];
 
-                    rt_printf("driver %d:Begin GAIT_END_DISCOVER...\n",i);
+                    rt_printf("driver %d:Begin GAIT_STEPUP_MAP...\n",i);
                 }
                 else
                 {
@@ -623,7 +636,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                     if(m_gaitCurrentIndex[i]==GAIT_STEPUPANDDOWN_LEN-1)
                     {
-                        rt_printf("driver %d: GAIT_END_DISCOVER will transfer to GAIT_STANDSTILL...\n",i);
+                        rt_printf("driver %d: GAIT_STEPUP_MAP will transfer to GAIT_STANDSTILL...\n",i);
 
                         p_gait[i]=GAIT_STANDSTILL;
 
@@ -636,7 +649,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                         if(IsStepUp == true)
                         {
-                           IsStepUpstep = true;
+                            IsStepUpstep = true;
                         }
                     }
                 }
@@ -645,13 +658,13 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
             case GAIT_STEPDOWN_MAP:
                 if(p_gait[i]!=m_currentGait[i])
                 {
-                    rt_printf("GAIT_END_DISCOVER!!!\n");
+                    rt_printf("GAIT_STEPDOWN_MAP!!!\n");
                     m_gaitState[i]=EGaitState::GAIT_RUN;
                     m_currentGait[i]=p_gait[i];
                     m_gaitStartTime[i]=p_data.time;
                     m_commandDataMapped[motorID].Position=GaitStepDownMap[0][motorID];
 
-                    rt_printf("driver %d:Begin GAIT_END_DISCOVER...\n",i);
+                    rt_printf("driver %d:Begin GAIT_STEPDOWN_MAP...\n",i);
                 }
                 else
                 {
@@ -660,7 +673,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                     if(m_gaitCurrentIndex[i]==GAIT_STEPUPANDDOWN_LEN-1)
                     {
-                        rt_printf("driver %d: GAIT_END_DISCOVER will transfer to GAIT_STANDSTILL...\n",i);
+                        rt_printf("driver %d: GAIT_STEPDOWN_MAP will transfer to GAIT_STANDSTILL...\n",i);
 
                         p_gait[i]=GAIT_STANDSTILL;
 
@@ -673,7 +686,7 @@ int CGait::RunGait(EGAIT* p_gait,Aris::RT_CONTROL::CMachineData& p_data)
 
                         if(IsStepDown == true)
                         {
-                           IsStepDownstep = true;
+                            IsStepDownstep = true;
                         }
                     }
                 }

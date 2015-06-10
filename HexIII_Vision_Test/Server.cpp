@@ -165,6 +165,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
         CGait::IsMove = true;
         double *move_data = new double [data.GetLength()/sizeof(double)];
         memcpy(move_data, data.GetDataAddress(), data.GetLength());
+        cout<<move_data[0]<<" "<<move_data[1]<<" "<<move_data[2]<<endl;
         HexIII.RobotMove(move_data, *Gait_Move_Map);
         for(int j=0;j<GAIT_MOVE_MAP_LEN;j++)
         {
@@ -185,7 +186,8 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
         CGait::IsTurn = true;
         double *turn_data = new double [data.GetLength()/sizeof(double)];
         memcpy(turn_data, data.GetDataAddress(), data.GetLength());
-        *turn_data = *turn_data/M_PI*180;
+        *turn_data = *turn_data*180/M_PI;
+        cout<<*turn_data<<endl;
         HexIII.RobotTurn(turn_data, *Gait_Turn_Map);
         for(int j=0;j<GAIT_TURN_MAP_LEN;j++)
         {
@@ -202,7 +204,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
         break;
     case 36:
     {
-        cout<<"STEP UP"<<endl;
+        cout<<"STEP UP!"<<endl;
         CGait::IsStepUp = true;
         double *map = new double [data.GetLength()/sizeof(double)];
         memcpy(map, data.GetDataAddress(), data.GetLength());
@@ -265,7 +267,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
         else
         {
             CGait::IsStepDown = true;
-            cout<<"STEP DOWN"<<endl;
+            cout<<"STEP DOWN!"<<endl;
             double *map = new double [data.GetLength()/sizeof(double)];
             memcpy(map, data.GetDataAddress(), data.GetLength());
 
@@ -313,6 +315,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
             }
         }
     }
+        break;
     case 38:
     {
         if(data.GetLength() == sizeof(int))
@@ -335,6 +338,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
             if(count == 5)
             {
                 CGait::IsStepOver = false;
+                cout<<"STEPOVER FINISHED!"<<endl;
                 Vision_Msg visioncmd = Vision_UpperControl;
                 Aris::Core::MSG visionmsg;
                 visionmsg.SetMsgID(VS_Capture);

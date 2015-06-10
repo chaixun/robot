@@ -169,6 +169,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_MOVE;
+                rt_printf("FORWARD Command Get in NRT\n" );
             }
         }
         break;
@@ -179,6 +180,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_MOVE_BACK;
+                rt_printf("BACKWARD Command Get in NRT\n" );
             }
         }
         break;
@@ -189,6 +191,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_TURN_LEFT;
+                rt_printf("TURNLEFT Command Get in NRT\n" );
             }
         }
         break;
@@ -199,6 +202,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_TURN_RIGHT;
+                rt_printf("TURNRIGHT Command Get in NRT\n" );
             }
         }
         break;
@@ -209,6 +213,8 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_LEGUP;
+                rt_printf("LEGUP Command Get in NRT\n" );
+
             }
         }
         break;
@@ -219,6 +225,8 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_MOVE_MAP;
+                rt_printf("MOVE_MAP Command Get in NRT\n" );
+
             }
         }
         break;
@@ -229,6 +237,8 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_TURN_MAP;
+                rt_printf("TURN_MAP Command Get in NRT\n" );
+
             }
         }
         break;
@@ -239,6 +249,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_BEGIN_DISCOVER;
+                rt_printf("BEGINDISCOVER Command Get in NRT\n" );
             }
         }
         break;
@@ -249,6 +260,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_END_DISCOVER;
+                rt_printf("ENDDISCOVER Command Get in NRT\n" );
             }
         }
         break;
@@ -259,6 +271,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_STEPUP_MAP;
+                rt_printf("STEPUP_MAP Command Get in NRT\n" );
             }
         }
         break;
@@ -269,6 +282,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             {
                 machineData.motorsModes[i]=EOperationMode::OM_CYCLICVEL;
                 gaitcmd[MapAbsToPhy[i]]=EGAIT::GAIT_STEPDOWN_MAP;
+                rt_printf("STEPDOWN_MAP Command Get in NRT\n" );
             }
         }
         break;
@@ -280,9 +294,11 @@ int tg(CMachineData& machineData,RT_MSG& msg)
 
     if(gait.IsGaitFinished())
     {
-        if(CGait::IsMove == true)
+        if(CGait::IsMove == true&&CGait::IsMoveEnd == true)
         {
             CGait::IsMove = false;
+            CGait::IsMoveEnd = false;
+            cout<<"MOVE FINISHED!"<<endl;
             Vision_Msg visioncmd = Vision_UpperControl;
             Aris::Core::MSG visionmsg;
             visionmsg.SetMsgID(VS_Capture);
@@ -291,9 +307,11 @@ int tg(CMachineData& machineData,RT_MSG& msg)
             PostMsg(visionmsg);
         }
 
-        if(CGait::IsTurn == true)
+        if(CGait::IsTurn == true&&CGait::IsTurnEnd == true)
         {
             CGait::IsTurn = false;
+            CGait::IsTurnEnd = false;
+            cout<<"TURN FINISHED!"<<endl;
             Vision_Msg visioncmd = Vision_UpperControl;
             Aris::Core::MSG visionmsg;
             visionmsg.SetMsgID(VS_Capture);
@@ -304,6 +322,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
 
         if(CGait::IsBeginDiscoverStart == true && CGait::IsBeginDiscoverEnd == true)
         {
+            cout<<"BEGINDISCOVER FINISHED!"<<endl;
             Vision_Msg visioncmd = Vision_StepUp;
             Aris::Core::MSG visionmsg;
             visionmsg.SetMsgID(VS_Capture);
@@ -316,6 +335,7 @@ int tg(CMachineData& machineData,RT_MSG& msg)
 
         if(CGait::IsEndDiscoverStart == true && CGait::IsEndDiscoverEnd == true)
         {
+            cout<<"ENDDISCOVER FINISHED!"<<endl;
             Vision_Msg visioncmd = Vision_UpperControl;
             Aris::Core::MSG visionmsg;
             visionmsg.SetMsgID(VS_Capture);

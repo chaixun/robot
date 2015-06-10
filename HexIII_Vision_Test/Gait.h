@@ -63,7 +63,9 @@ public:
     //new
     static void  IfReadytoSetGait(bool b, int driverID);
     static bool IsMove;
+    static bool IsMoveEnd;
     static bool IsTurn;
+    static bool IsTurnEnd;
     static bool IsBeginDiscoverStart;
     static bool IsBeginDiscoverEnd;
     static bool IsEndDiscoverStart;
