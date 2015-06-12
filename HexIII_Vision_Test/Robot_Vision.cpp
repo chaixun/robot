@@ -319,7 +319,7 @@ int Vision_Robot::RobotMove(double *Move, double *MoveData)
 
 
         bodyEp[3] = bodyEpo[3] + Ellipse_ax/2 + Ellipse_ax/2 * dec_even(1250, i + 1);
-        bodyEp[5] = bodyEpo[5] + Ellipse_az/2 + Ellipse_az/2 * acc_even(1250, i + 1);
+        bodyEp[5] = bodyEpo[5] + Ellipse_az/2 + Ellipse_az/2 * dec_even(1250, i + 1);
 
         this->SetPee(pEE, bodyEp, "G");
         this->GetPin(pIn);

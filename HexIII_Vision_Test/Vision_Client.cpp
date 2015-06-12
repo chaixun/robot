@@ -126,7 +126,14 @@ int OnUpperControl(Aris::Core::MSG &msg)
                         /*max walk*/
                         double movez_data[3] = {0, 0, 0};
                         movez_data[2] = (Kinect::leftedge_z - 30)*0.025;
-                        movez_data[2] = movez_data[2] > 0.5? 0.5 : movez_data[2];
+                        if(Kinect::leftedge_z < 29)
+                        {
+                            movez_data[2] = movez_data[2] < -0.5? -0.5 : movez_data[2];
+                        }
+                        else
+                        {
+                            movez_data[2] = movez_data[2] > 0.5? 0.5 : movez_data[2];
+                        }
                         Aris::Core::MSG movez_msg;
                         movez_msg.SetMsgID(Move);
                         movez_msg.SetLength(3*sizeof(double));
