@@ -67,15 +67,15 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         pcl::PointCloud<pcl::PointXYZ>::Ptr RobotPoint(new pcl::PointCloud<pcl::PointXYZ>);
         Eigen::Matrix4f transformation2;
-        //        transformation2 << 0.9995, 0.0134, -0.0273, 0.0224,
-        //                -0.0304, 0.5120, -0.8584, 0.2026 + 0.038,
-        //                0.0025, 0.8589, 0.5122, 0.5733,
-        //                0, 0, 0, 1;
-        // 0.2026 + 0.85 + 0.038 + 0.2
-        transformation2 << 0.9996, 0.0233, -0.0137, 0.0224,
-                -0.0270, 0.8622, -0.5059, 0.2026 - 0.12,
-                0, 0.5061, 0.8625, 0.5733,
+        transformation2 << 0.9995, 0.0134, -0.0273, 0.0224,
+                -0.0304, 0.5120, -0.8584, 0.2026 + 0.038,
+                0.0025, 0.8589, 0.5122, 0.5733,
                 0, 0, 0, 1;
+        // 0.2026 + 0.85 + 0.038 + 0.2
+        //        transformation2 << 0.9996, 0.0233, -0.0137, 0.0224,
+        //                -0.0270, 0.8622, -0.5059, 0.2026 - 0.12,
+        //                0, 0.5061, 0.8625, 0.5733,
+        //                0, 0, 0, 1;
         pcl::transformPointCloud(*SensorPoint,*RobotPoint,transformation2);
 
 
