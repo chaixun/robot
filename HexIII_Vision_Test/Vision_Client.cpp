@@ -122,7 +122,8 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 {
                     /*Move Closer*/
                     cout<<"MOVE FORWARD AND BACKWARD"<<endl;
-                    cout<<"EDGE Z: "<<Kinect::leftedge_z<<endl;
+                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
+                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
                     if((Kinect::leftedge_z < 29) || (Kinect::leftedge_z > 31))
                     {
                         /*max walk*/
