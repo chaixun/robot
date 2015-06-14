@@ -150,8 +150,8 @@ int OnUpperControl(Aris::Core::MSG &msg)
                         cout<<"MOVE LFET AND RIGHT"<<endl;
                         cout<<"LEFT_X: "<<Kinect::leftedge_x<<endl;
                         cout<<"RIGHT_X: "<<Kinect::rightedge_x<<endl;
-                        if((Kinect::rightedge_x !=0&&Kinect::leftedge_x!=0)
-                                &&(Kinect::rightedge_x > 38 || Kinect::leftedge_x < 82))
+                        if((Kinect::rightedge_x !=0&&Kinect::rightedge_x > 38)
+                                ||(Kinect::leftedge_x!=0&&Kinect::leftedge_x < 82))
                         {
                             /*max walk*/
                             if(Kinect::rightedge_x <= 38)
