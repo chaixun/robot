@@ -45,7 +45,7 @@ void Kinect::capture(int *num)
     (*num)++;
     frames_num++;
     IsCapture = true;
-    cout<<"Capture Step "<is<*num<<" Beging !!!"<<endl;
+    cout<<"Capture Step "<<*num<<" Beging !!!"<<endl;
 }
 
 void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
