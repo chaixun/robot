@@ -96,6 +96,8 @@ int OnUpperControl(Aris::Core::MSG &msg)
         {
             Kinect::IsCaptureEnd = false;
 
+            cout<<Kinect::Terrain<<endl;
+
             if(Kinect::Terrain != FlatTerrain)
             {
                 /* Turn */
@@ -103,8 +105,8 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 {
                     /*max turn*/
                     cout<<"TURN"<<endl;
-                    cout<<"LEFT: "<<Kinect::leftedge_z<<endl;
-                    cout<<"RIGHT: "<<Kinect::rightedge_z<<endl;
+                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
+                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
                     double turn_ang = atan2((Kinect::rightedge_z - Kinect::leftedge_z), 24);
                     cout<<turn_ang<<endl;
                     if(abs(turn_ang) > 35*M_PI/180)

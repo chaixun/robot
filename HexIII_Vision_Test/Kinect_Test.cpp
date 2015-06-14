@@ -119,7 +119,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         //Judge Terrain
 
-        for(int k = 26; k <= 50; k++)
+        for(int k = 30; k <= 50; k++)
         {
             if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.05)
             {
