@@ -154,7 +154,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             //Find Edge
 
             /*Find Edge Along Z*/
-            for(int m = 26; m <= 50; m++)
+            for(int m = 30; m <= 50; m++)
             {
                 if(abs(GridMap(m+1, 48)-GridMap(m, 48)) > 0.07)
                 {

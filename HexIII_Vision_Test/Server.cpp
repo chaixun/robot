@@ -295,7 +295,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
             {
                 double StepDownLen = 0.325;
 
-                HexIII.RobotStepUp(&StepDownLen,StepDown_currentH,StepDown_nextH,*Gait_StepDown__Map);
+                HexIII.RobotStepDown(&StepDownLen,StepDown_currentH,StepDown_nextH,*Gait_StepDown__Map);
 
                 memcpy(StepDown_currentH,StepDown_nextH,sizeof(StepDown_nextH));
 
