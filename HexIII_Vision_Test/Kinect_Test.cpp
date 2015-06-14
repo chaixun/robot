@@ -45,7 +45,7 @@ void Kinect::capture(int *num)
     (*num)++;
     frames_num++;
     IsCapture = true;
-    cout<<"Capture Step "<is<*num<<" Beging !!!"<<endl;
+    cout<<"Capture Step "<<*num<<" Beging !!!"<<endl;
 }
 
 void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
@@ -149,55 +149,57 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             Terrain = FlatTerrain;
         }
 
-        //Find Edge
-
-        /*Find Edge Along Z*/
-        for(int m = 26; m <= 50; m++)
+        if(Terrain != FlatTerrain)
         {
-            if(abs(GridMap(m+1, 48)-GridMap(m, 48)) > 0.07)
+            //Find Edge
+
+            /*Find Edge Along Z*/
+            for(int m = 26; m <= 50; m++)
             {
-                rightedge_z = m + 1;
+                if(abs(GridMap(m+1, 48)-GridMap(m, 48)) > 0.07)
+                {
+                    rightedge_z = m + 1;
+                }
+
+                if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.07)
+                {
+                    leftedge_z = m + 1;
+                }
+
+                if(Terrain == DitchTerrain)
+                {
+                    if(GridMap(m+1, 48)-GridMap(m, 48) < -0.07)
+                    {
+                        near_rightedge_z = m;
+                    }
+                    if(GridMap(m+1, 48)-GridMap(m, 48) > 0.07)
+                    {
+                        far_rightedge_z = m + 1;
+                    }
+                    if(GridMap(m+1, 72)-GridMap(m, 72) < -0.07)
+                    {
+                        near_leftedge_z = m;
+                    }
+                    if(GridMap(m+1, 72)-GridMap(m, 72) > 0.07)
+                    {
+                        far_leftedge_z = m + 1;
+                    }
+                }
             }
 
-            if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.07)
+            /*Find Edge Along X*/
+            for(int k = 0; k < 23; k++)
             {
-                leftedge_z = m + 1;
-            }
-
-            if(Terrain == DitchTerrain)
-            {
-                if(GridMap(m+1, 48)-GridMap(m, 48) < -0.07)
+                if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.07 )
                 {
-                    near_rightedge_z = m;
+                    rightedge_x = 60 - k;
                 }
-                if(GridMap(m+1, 48)-GridMap(m, 48) > 0.07)
+                if(abs(GridMap(39, 60+k+1) - GridMap(39, 60+k)) > 0.07 )
                 {
-                    far_rightedge_z = m + 1;
-                }
-                if(GridMap(m+1, 72)-GridMap(m, 72) < -0.07)
-                {
-                    near_leftedge_z = m;
-                }
-                if(GridMap(m+1, 72)-GridMap(m, 72) > 0.07)
-                {
-                    far_leftedge_z = m + 1;
+                    leftedge_x = 60 + k;
                 }
             }
         }
-
-        /*Find Edge Along X*/
-        for(int k = 0; k < 23; k++)
-        {
-            if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.07 )
-            {
-                rightedge_x = 60 - k;
-            }
-            if(abs(GridMap(39, 60+k+1) - GridMap(39, 60+k)) > 0.07 )
-            {
-                leftedge_x = 60 + k;
-            }
-        }
-
         //Judge Command
 
         CurrentHeight[0] = (GridMap(39,43) + GridMap(39,44) + GridMap(40,43) + GridMap(40,44))/4;
