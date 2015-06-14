@@ -190,11 +190,11 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             /*Find Edge Along X*/
             for(int k = 0; k < 25; k++)
             {
-                if(abs(GridMap(45, 60-k-1) - GridMap(45, 60-k)) > 0.07 )
+                if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.07 )
                 {
                     rightedge_x = 60 - k;
                 }
-                if(abs(GridMap(45, 60+k+1) - GridMap(45, 60+k)) > 0.07 )
+                if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.07 )
                 {
                     leftedge_x = 60 + k;
                 }
