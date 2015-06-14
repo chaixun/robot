@@ -1,4 +1,4 @@
-#include "Kinect_Test.h"
+﻿#include "Kinect_Test.h"
 
 double Kinect::CurrentHeight[4];
 bool Kinect::IsCaptureEnd;
@@ -45,7 +45,7 @@ void Kinect::capture(int *num)
     (*num)++;
     frames_num++;
     IsCapture = true;
-    cout<<"Capture Step "<<*num<<" Beging !!!"<<endl;
+    cout<<"Capture Step "<is<*num<<" Beging !!!"<<endl;
 }
 
 void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
@@ -54,6 +54,17 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
     {
         bool positive = false;
         bool negative = false;
+
+        leftedge_z = 0;
+        rightedge_z = 0;
+        near_leftedge_z = 0;
+        near_rightedge_z = 0;
+        far_leftedge_z = 0;
+        far_rightedge_z = 0;
+        leftedge_x = 0;
+        rightedge_x = 0;
+        Terrain = FlatTerrain;
+
         //bool Obstacle = false;
         IsCapture = false;
         pcl::PointCloud<pcl::PointXYZ>::Ptr SensorPoint(new pcl::PointCloud<pcl::PointXYZ>);
@@ -175,13 +186,13 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         }
 
         /*Find Edge Along X*/
-        for(int k = 0; k < 58; k++)
+        for(int k = 0; k < 23; k++)
         {
-            if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.08 )
+            if(abs(GridMap(39, 60-k-1) - GridMap(39, 60-k)) > 0.07 )
             {
                 rightedge_x = 60 - k;
             }
-            if(abs(GridMap(39, 60+k+1) - GridMap(39, 60+k)) > 0.08 )
+            if(abs(GridMap(39, 60+k+1) - GridMap(39, 60+k)) > 0.07 )
             {
                 leftedge_x = 60 + k;
             }

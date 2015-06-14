@@ -99,9 +99,10 @@ int OnUpperControl(Aris::Core::MSG &msg)
             if(Kinect::Terrain != FlatTerrain)
             {
                 /* Turn */
-                if(abs(Kinect::leftedge_z - Kinect::rightedge_z) >= 1)
+                if(abs(Kinect::leftedge_z - Kinect::rightedge_z) >= 2)
                 {
                     /*max turn*/
+                    cout<<"TURN"<<endl;
                     cout<<"LEFT: "<<Kinect::leftedge_z<<endl;
                     cout<<"RIGHT: "<<Kinect::rightedge_z<<endl;
                     double turn_ang = atan2((Kinect::rightedge_z - Kinect::leftedge_z), 24);
@@ -120,6 +121,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 else
                 {
                     /*Move Closer*/
+                    cout<<"MOVE FORWARD AND BACKWARD"<<endl;
                     cout<<"EDGE Z: "<<Kinect::leftedge_z<<endl;
                     if((Kinect::leftedge_z < 29) || (Kinect::leftedge_z > 31))
                     {
@@ -128,11 +130,11 @@ int OnUpperControl(Aris::Core::MSG &msg)
                         movez_data[2] = (Kinect::leftedge_z - 30)*0.025;
                         if(Kinect::leftedge_z < 29)
                         {
-                            movez_data[2] = movez_data[2] < -0.5? -0.5 : movez_data[2];
+                            movez_data[2] = movez_data[2] < -0.325? -0.325 : movez_data[2];
                         }
                         else
                         {
-                            movez_data[2] = movez_data[2] > 0.5? 0.5 : movez_data[2];
+                            movez_data[2] = movez_data[2] > 0.325? 0.325 : movez_data[2];
                         }
                         Aris::Core::MSG movez_msg;
                         movez_msg.SetMsgID(Move);
@@ -144,7 +146,11 @@ int OnUpperControl(Aris::Core::MSG &msg)
                     else
                     {
                         /*Move Middle*/
-                        if(Kinect::rightedge_x > 38 || Kinect::leftedge_x < 82)
+                        cout<<"MOVE LFET AND RIGHT"<<endl;
+                        cout<<"LEFT_X: "<<Kinect::leftedge_z<<endl;
+                        cout<<"RIGHT_X: "<<Kinect::rightedge_z<<endl;
+                        if((Kinect::rightedge_x !=0&&Kinect::leftedge_x!=0)
+                                &&(Kinect::rightedge_x > 38 || Kinect::leftedge_x < 82))
                         {
                             /*max walk*/
                             if(Kinect::rightedge_x <= 38)
