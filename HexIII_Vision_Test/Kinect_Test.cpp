@@ -104,16 +104,16 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
                 m = floor(RobotPoint->points[i].z/0.025);
 
                 //Mean
-                /*
+
                 GridMap(m,n) = (GridMap(m,n)*GridNum(m,n) + RobotPoint->points[i].y)/(GridNum(m,n) + 1);
                 GridNum(m,n) = GridNum(m,n) + 1;
-                */
+
                 //Max
 
-                if (GridMap(m,n) < RobotPoint->points[i].y)
-                {
-                    GridMap(m,n) = RobotPoint->points[i].y;
-                }
+                //if (GridMap(m,n) < RobotPoint->points[i].y)
+                //{
+                //GridMap(m,n) = RobotPoint->points[i].y;
+                //}
 
             }
         }

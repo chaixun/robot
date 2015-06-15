@@ -228,6 +228,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
             else
             {
                 cout<<"FLAT TERRAIN MOVE"<<endl;
+                cout<<"MOVE: "<<0.325<<endl;
                 double move_data[3] = {0, 0, 0};
                 move_data[2] = 0.325;
                 Aris::Core::MSG move_msg;
