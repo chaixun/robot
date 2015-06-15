@@ -104,29 +104,30 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
                 m = floor(RobotPoint->points[i].z/0.025);
 
                 //Mean
+                /*
                 GridMap(m,n) = (GridMap(m,n)*GridNum(m,n) + RobotPoint->points[i].y)/(GridNum(m,n) + 1);
                 GridNum(m,n) = GridNum(m,n) + 1;
-
+                */
                 //Max
-                /*
-        if (GridMap(m,n) < filtertransformed->points[i].y)
-        {
-            GridMap(m,n) = filtertransformed->points[i].y;
-        }
-        */
+
+                if (GridMap(m,n) < RobotPoint->points[i].y)
+                {
+                    GridMap(m,n) = RobotPoint->points[i].y;
+                }
+
             }
         }
 
         //Judge Terrain
 
-        for(int k = 30; k <= 45; k++)
+        for(int k = 29; k <= 45; k++)
         {
-            if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.07)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.07)
             {
                 positive = true;
             }
 
-            if(GridMap(k + 1, 60) - GridMap(k, 60) < -0.07)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.07)
             {
                 negative = true;
             }
@@ -154,9 +155,9 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             //Find Edge
 
             /*Find Edge Along Z*/
-            for(int m = 28; m <= 55; m++)
+            for(int m = 29; m <= 55; m++)
             {
-                if(abs(GridMap(m+1, 48)-GridMap(m, 48)) > 0.07)
+                if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.07)
                 {
                     rightedge_z = m + 1;
                 }
@@ -168,11 +169,11 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
                 if(Terrain == DitchTerrain)
                 {
-                    if(GridMap(m+1, 48)-GridMap(m, 48) < -0.07)
+                    if(GridMap(m+1, 49)-GridMap(m, 49) < -0.07)
                     {
                         near_rightedge_z = m;
                     }
-                    if(GridMap(m+1, 48)-GridMap(m, 48) > 0.07)
+                    if(GridMap(m+1, 49)-GridMap(m, 49) > 0.07)
                     {
                         far_rightedge_z = m + 1;
                     }

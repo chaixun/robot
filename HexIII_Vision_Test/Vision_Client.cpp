@@ -126,12 +126,12 @@ int OnUpperControl(Aris::Core::MSG &msg)
                     cout<<"MOVE FORWARD AND BACKWARD"<<endl;
                     cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
                     cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
-                    if((Kinect::leftedge_z < 31) || (Kinect::leftedge_z > 33))
+                    if((Kinect::leftedge_z < 30) || (Kinect::leftedge_z > 32))
                     {
                         /*max walk*/
                         double movez_data[3] = {0, 0, 0};
-                        movez_data[2] = (Kinect::leftedge_z - 32)*0.025;
-                        if(Kinect::leftedge_z < 31)
+                        movez_data[2] = (Kinect::leftedge_z - 31)*0.025;
+                        if(Kinect::leftedge_z < 30)
                         {
                             movez_data[2] = movez_data[2] < -0.325? -0.325 : movez_data[2];
                         }
@@ -152,11 +152,11 @@ int OnUpperControl(Aris::Core::MSG &msg)
                         cout<<"MOVE LFET AND RIGHT"<<endl;
                         cout<<"LEFT_X: "<<Kinect::leftedge_x<<endl;
                         cout<<"RIGHT_X: "<<Kinect::rightedge_x<<endl;
-                        if((Kinect::rightedge_x !=0&&Kinect::rightedge_x > 38)
+                        if((Kinect::rightedge_x !=0&&Kinect::rightedge_x > 39)
                                 ||(Kinect::leftedge_x!=0&&Kinect::leftedge_x < 82))
                         {
                             /*max walk*/
-                            if(Kinect::rightedge_x <= 38)
+                            if(Kinect::rightedge_x < 39)
                             {
                                 double movexr_data[3] = {0, 0, 0};
                                 movexr_data[0] = (Kinect::leftedge_x - 82)*0.025;
@@ -171,7 +171,7 @@ int OnUpperControl(Aris::Core::MSG &msg)
                             else
                             {
                                 double movexl_data[3] = {0, 0, 0};
-                                movexl_data[0] = (Kinect::rightedge_x - 38)*0.025;
+                                movexl_data[0] = (Kinect::rightedge_x - 39)*0.025;
                                 movexl_data[0] = movexl_data[0] > 0.07 ? 0.07 : movexl_data[0];
                                 Aris::Core::MSG movexl_msg;
                                 movexl_msg.SetMsgID(Move);
@@ -373,11 +373,11 @@ int OnStepOver(Aris::Core::MSG &msg)
             stepover_data[0] = counter;
             if(int(stepover_data[0]) % 2 == 0)
             {
-                stepover_data[3] = 0.5;
+                stepover_data[3] = 0.55;
             }
             else
             {
-                stepover_data[3] = 0.15;
+                stepover_data[3] = 0.10;
             }
 
             Aris::Core::MSG stepover_msg;
