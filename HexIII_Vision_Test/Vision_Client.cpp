@@ -259,7 +259,7 @@ int OnStepUp(Aris::Core::MSG &msg)
         {
             for(int m = 0; m < 4; m++)
             {
-                if(abs(Kinect::CurrentHeight[m] + 0.85) < 0.05 )
+                if(abs(Kinect::CurrentHeight[m] + 0.85) < 0.035 )
                 {
                     Kinect::CurrentHeight[m] = -0.85;
                 }
@@ -316,7 +316,7 @@ int OnStepDown(Aris::Core::MSG &msg)
         {
             for(int m = 0; m < 4; m++)
             {
-                if(abs(Kinect::CurrentHeight[m] + 1.05) < 0.05 )
+                if(abs(Kinect::CurrentHeight[m] + 1.05) < 0.035 )
                 {
                     Kinect::CurrentHeight[m] = -1.05;
                 }

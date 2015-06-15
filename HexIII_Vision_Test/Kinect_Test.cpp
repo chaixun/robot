@@ -122,12 +122,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         for(int k = 29; k <= 45; k++)
         {
-            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.07)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.05)
             {
                 positive = true;
             }
 
-            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.07)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.05)
             {
                 negative = true;
             }
@@ -157,31 +157,31 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             /*Find Edge Along Z*/
             for(int m = 29; m <= 55; m++)
             {
-                if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.07)
+                if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.05)
                 {
                     rightedge_z = m + 1;
                 }
 
-                if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.07)
+                if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.05)
                 {
                     leftedge_z = m + 1;
                 }
 
                 if(Terrain == DitchTerrain)
                 {
-                    if(GridMap(m+1, 49)-GridMap(m, 49) < -0.07)
+                    if(GridMap(m+1, 49)-GridMap(m, 49) < -0.05)
                     {
                         near_rightedge_z = m;
                     }
-                    if(GridMap(m+1, 49)-GridMap(m, 49) > 0.07)
+                    if(GridMap(m+1, 49)-GridMap(m, 49) > 0.05)
                     {
                         far_rightedge_z = m + 1;
                     }
-                    if(GridMap(m+1, 72)-GridMap(m, 72) < -0.07)
+                    if(GridMap(m+1, 72)-GridMap(m, 72) < -0.05)
                     {
                         near_leftedge_z = m;
                     }
-                    if(GridMap(m+1, 72)-GridMap(m, 72) > 0.07)
+                    if(GridMap(m+1, 72)-GridMap(m, 72) > 0.05)
                     {
                         far_leftedge_z = m + 1;
                     }
@@ -191,11 +191,11 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             /*Find Edge Along X*/
             for(int k = 0; k < 25; k++)
             {
-                if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.07 )
+                if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.05 )
                 {
                     rightedge_x = 60 - k;
                 }
-                if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.07 )
+                if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.05 )
                 {
                     leftedge_x = 60 + k;
                 }
