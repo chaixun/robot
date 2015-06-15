@@ -246,12 +246,14 @@ int OnUpperControl(Aris::Core::MSG &msg)
 int OnStepUp(Aris::Core::MSG &msg)
 {
     cout<<"Step Up!!!"<<endl;
+
+    static int StepUp_Num = -1;
     fstream GaitFile_Up;
     static double StepUp_Foot_Height[5][6] = {0};
 
     GaitFile_Up.open(GaitLog_StepUp, ios::out|ios::app);
 
-    visionsensor.capture(&i);
+    visionsensor.capture(&StepUp_Num);
 
     while(1)
     {
@@ -274,25 +276,25 @@ int OnStepUp(Aris::Core::MSG &msg)
                     Kinect::CurrentHeight[m] = -1.05;
                 }
             }
-            StepUp_Foot_Height[(4+i)%5][0] = Kinect::CurrentHeight[1];
-            StepUp_Foot_Height[(2+i)%5][1] = Kinect::CurrentHeight[0];
-            StepUp_Foot_Height[(0+i)%5][2] = Kinect::CurrentHeight[1];
-            StepUp_Foot_Height[(4+i)%5][3] = Kinect::CurrentHeight[3];
-            StepUp_Foot_Height[(2+i)%5][4] = Kinect::CurrentHeight[2];
-            StepUp_Foot_Height[(0+i)%5][5] = Kinect::CurrentHeight[3];
+            StepUp_Foot_Height[(4+StepUp_Num)%5][0] = Kinect::CurrentHeight[1];
+            StepUp_Foot_Height[(2+StepUp_Num)%5][1] = Kinect::CurrentHeight[0];
+            StepUp_Foot_Height[(0+StepUp_Num)%5][2] = Kinect::CurrentHeight[1];
+            StepUp_Foot_Height[(4+StepUp_Num)%5][3] = Kinect::CurrentHeight[3];
+            StepUp_Foot_Height[(2+StepUp_Num)%5][4] = Kinect::CurrentHeight[2];
+            StepUp_Foot_Height[(0+StepUp_Num)%5][5] = Kinect::CurrentHeight[3];
 
-            cout<<"FOOT HEIGHT"<<endl<<StepUp_Foot_Height[i%5][0]<<endl<<StepUp_Foot_Height[i%5][1]<<endl<<StepUp_Foot_Height[i%5][2]
-                    <<endl<<StepUp_Foot_Height[i%5][3]<<endl<<StepUp_Foot_Height[i%5][4]<<endl<<StepUp_Foot_Height[i%5][5]<<endl;
+            cout<<"FOOT HEIGHT"<<endl<<StepUp_Foot_Height[StepUp_Num%5][0]<<endl<<StepUp_Foot_Height[StepUp_Num%5][1]<<endl<<StepUp_Foot_Height[StepUp_Num%5][2]
+                    <<endl<<StepUp_Foot_Height[StepUp_Num%5][3]<<endl<<StepUp_Foot_Height[StepUp_Num%5][4]<<endl<<StepUp_Foot_Height[StepUp_Num%5][5]<<endl;
 
             Kinect::IsCaptureEnd = false;
             Aris::Core::MSG stepup_msg;
             stepup_msg.SetMsgID(StepUp);
             stepup_msg.SetLength(6 * sizeof(double));
-            stepup_msg.Copy(StepUp_Foot_Height[i%5], sizeof(StepUp_Foot_Height[i%5]));
+            stepup_msg.Copy(StepUp_Foot_Height[StepUp_Num%5], sizeof(StepUp_Foot_Height[StepUp_Num%5]));
             pVisualSystem->SendData(stepup_msg);
 
-            GaitFile_Up<<StepUp_Foot_Height[i%5][0]<<" "<<StepUp_Foot_Height[i%5][1]<<" "<<StepUp_Foot_Height[i%5][2]
-                    <<" "<<StepUp_Foot_Height[i%5][3]<<" "<<StepUp_Foot_Height[i%5][4]<<" "<<StepUp_Foot_Height[i%5][5]<<endl;
+            GaitFile_Up<<StepUp_Foot_Height[StepUp_Num%5][0]<<" "<<StepUp_Foot_Height[StepUp_Num%5][1]<<" "<<StepUp_Foot_Height[StepUp_Num%5][2]
+                    <<" "<<StepUp_Foot_Height[StepUp_Num%5][3]<<" "<<StepUp_Foot_Height[StepUp_Num%5][4]<<" "<<StepUp_Foot_Height[StepUp_Num%5][5]<<endl;
             GaitFile_Up.close();
             break;
         }
@@ -303,12 +305,13 @@ int OnStepDown(Aris::Core::MSG &msg)
 {
     cout<<"Step Down!!!"<<endl;
 
+    static int StepDown_Num = -1;
     fstream GaitFile_StepDown;
     static double StepDown_Foot_Height[5][6] = {0};
 
     GaitFile_StepDown.open(GaitLog_StepDown, ios::out|ios::app);
 
-    visionsensor.capture(&i);
+    visionsensor.capture(&StepDown_Num);
 
     while(1)
     {
@@ -333,25 +336,25 @@ int OnStepDown(Aris::Core::MSG &msg)
 
             }
 
-            StepDown_Foot_Height[(4+i)%5][0] = Kinect::CurrentHeight[1];
-            StepDown_Foot_Height[(2+i)%5][1] = Kinect::CurrentHeight[0];
-            StepDown_Foot_Height[(0+i)%5][2] = Kinect::CurrentHeight[1];
-            StepDown_Foot_Height[(4+i)%5][3] = Kinect::CurrentHeight[3];
-            StepDown_Foot_Height[(2+i)%5][4] = Kinect::CurrentHeight[2];
-            StepDown_Foot_Height[(0+i)%5][5] = Kinect::CurrentHeight[3];
+            StepDown_Foot_Height[(4+StepDown_Num)%5][0] = Kinect::CurrentHeight[1];
+            StepDown_Foot_Height[(2+StepDown_Num)%5][1] = Kinect::CurrentHeight[0];
+            StepDown_Foot_Height[(0+StepDown_Num)%5][2] = Kinect::CurrentHeight[1];
+            StepDown_Foot_Height[(4+StepDown_Num)%5][3] = Kinect::CurrentHeight[3];
+            StepDown_Foot_Height[(2+StepDown_Num)%5][4] = Kinect::CurrentHeight[2];
+            StepDown_Foot_Height[(0+StepDown_Num)%5][5] = Kinect::CurrentHeight[3];
 
-            cout<<"FOOT HEIGHT"<<endl<<StepDown_Foot_Height[i%5][0]<<endl<<StepDown_Foot_Height[i%5][1]<<endl<<StepDown_Foot_Height[i%5][2]
-                    <<endl<<StepDown_Foot_Height[i%5][3]<<endl<<StepDown_Foot_Height[i%5][4]<<endl<<StepDown_Foot_Height[i%5][5]<<endl;
+            cout<<"FOOT HEIGHT"<<endl<<StepDown_Foot_Height[StepDown_Num%5][0]<<endl<<StepDown_Foot_Height[StepDown_Num%5][1]<<endl<<StepDown_Foot_Height[StepDown_Num%5][2]
+                    <<endl<<StepDown_Foot_Height[StepDown_Num%5][3]<<endl<<StepDown_Foot_Height[StepDown_Num%5][4]<<endl<<StepDown_Foot_Height[StepDown_Num%5][5]<<endl;
 
             Kinect::IsCaptureEnd = false;
             Aris::Core::MSG stepdown_msg;
             stepdown_msg.SetMsgID(StepDown);
             stepdown_msg.SetLength(6 * sizeof(double));
-            stepdown_msg.Copy(StepDown_Foot_Height[i%5], sizeof(StepDown_Foot_Height[i%5]));
+            stepdown_msg.Copy(StepDown_Foot_Height[StepDown_Num%5], sizeof(StepDown_Foot_Height[StepDown_Num%5]));
             pVisualSystem->SendData(stepdown_msg);
 
-            GaitFile_StepDown<<StepDown_Foot_Height[i%5][0]<<" "<<StepDown_Foot_Height[i%5][1]<<" "<<StepDown_Foot_Height[i%5][2]
-                    <<" "<<StepDown_Foot_Height[i%5][3]<<" "<<StepDown_Foot_Height[i%5][4]<<" "<<StepDown_Foot_Height[i%5][5]<<endl;
+            GaitFile_StepDown<<StepDown_Foot_Height[StepDown_Num%5][0]<<" "<<StepDown_Foot_Height[StepDown_Num%5][1]<<" "<<StepDown_Foot_Height[StepDown_Num%5][2]
+                    <<" "<<StepDown_Foot_Height[StepDown_Num%5][3]<<" "<<StepDown_Foot_Height[StepDown_Num%5][4]<<" "<<StepDown_Foot_Height[StepDown_Num%5][5]<<endl;
             GaitFile_StepDown.close();
             break;
         }
