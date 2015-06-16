@@ -348,7 +348,11 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
             }
             else
             {
-                double *move_data = stepover_data + 1;
+                double move_data[3];
+                move_data[0] = stepover_data[1];
+                move_data[1] = stepover_data[2];
+                move_data[2] = stepover_data[3];
+
                 HexIII.RobotMove(move_data, *Gait_Move_Map);
                 for(int j=0;j<GAIT_MOVE_MAP_LEN;j++)
                 {

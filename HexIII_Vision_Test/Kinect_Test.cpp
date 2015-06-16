@@ -143,7 +143,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         }
         if(positive == true&& negative == true)
         {
-            Terrain = DitchTerrain;
+            Terrain = StepDownTerrain;
         }
         if(positive == false&& negative == false)
         {
