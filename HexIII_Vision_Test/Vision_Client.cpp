@@ -126,12 +126,12 @@ int OnUpperControl(Aris::Core::MSG &msg)
                     cout<<"MOVE FORWARD AND BACKWARD"<<endl;
                     cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
                     cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
-                    if((Kinect::leftedge_z < 30) || (Kinect::leftedge_z > 32))
+                    if((Kinect::leftedge_z < 31) || (Kinect::leftedge_z > 33))
                     {
                         /*max walk*/
                         double movez_data[3] = {0, 0, 0};
-                        movez_data[2] = (Kinect::leftedge_z - 31)*0.025;
-                        if(Kinect::leftedge_z < 30)
+                        movez_data[2] = (Kinect::leftedge_z - 32)*0.025;
+                        if(Kinect::leftedge_z < 31)
                         {
                             movez_data[2] = movez_data[2] < -0.325? -0.325 : movez_data[2];
                         }
