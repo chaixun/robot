@@ -249,7 +249,14 @@ int OnStepUp(Aris::Core::MSG &msg)
 
     static int StepUp_Num = -1;
     fstream GaitFile_Up;
-    static double StepUp_Foot_Height[5][6] = {0};
+    static double StepUp_Foot_Height[5][6] =
+    {
+        {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05},
+        {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05},
+        {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05},
+        {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05},
+        {-1.05, -1.05, -1.05, -1.05, -1.05, -1.05},
+    };
 
     GaitFile_Up.open(GaitLog_StepUp, ios::out|ios::app);
 
@@ -307,7 +314,14 @@ int OnStepDown(Aris::Core::MSG &msg)
 
     static int StepDown_Num = -1;
     fstream GaitFile_StepDown;
-    static double StepDown_Foot_Height[5][6] = {0};
+    static double StepDown_Foot_Height[5][6] =
+    {
+        {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85},
+        {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85},
+        {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85},
+        {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85},
+        {-0.85, -0.85, -0.85, -0.85, -0.85, -0.85},
+    };
 
     GaitFile_StepDown.open(GaitLog_StepDown, ios::out|ios::app);
 
