@@ -5,12 +5,12 @@
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/common/transforms.h>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv/cv.h>
+//#include <opencv2/highgui/highgui.hpp>
+//#include <opencv/cv.h>
 
 
 using namespace std;
-using namespace cv;
+//using namespace cv;
 using namespace pcl;
 
 

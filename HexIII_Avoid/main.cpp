@@ -8,12 +8,12 @@ using namespace Aris::RT_CONTROL;
 
 static int HEXBOT_HOME_OFFSETS_RESOLVER[18] =
 {
-    -15849882,	 -16354509,	 -16354509,
-    -15849882,	 -16354509,	 -16354509,
-    -15849882,	 -16354509,	 -16354509,
-    -16354509,	 -15849882,	 -16354509,
-    -15849882,	 -16354509,	 -16354509,
-    -16354509,	 -16354509,  -15849882
+    -15849882 + 349000,	 -16354509 + 349000,	 -16354509 + 349000,
+    -15849882 + 349000,	 -16354509 + 349000,	 -16354509 + 349000,
+    -15849882 + 349000,	 -16354509 + 349000,	 -16354509 + 349000,
+    -16354509 + 349000,	 -15849882 + 349000,	 -16354509 + 349000,
+    -15849882 + 349000,	 -16354509 + 349000,	 -16354509 + 349000,
+    -16354509 + 349000,	 -16354509 + 349000,     -15849882 + 349000
 };
 
 int main()
@@ -44,8 +44,11 @@ int main()
 
     initParam.motorNum=18;
     initParam.homeHighSpeed=300000;
-    initParam.homeLowSpeed=40000;
+    initParam.homeLowSpeed=80000;
     initParam.homeOffsets=HEXBOT_HOME_OFFSETS_RESOLVER;
+
+    initParam.homeMode = -1;
+    initParam.homeTorqueLimit = 1000;
 
     //cs.Load_XML_PrintMessage();
     cs.SetSysInitializer(initFun);

@@ -12,7 +12,6 @@ ENDFUNCTION(PREPEND)
 project(HexIII_Calibration)
 
 find_package(PCL 1.7 REQUIRED)
-find_package(OpenCV REQUIRED)
 add_definitions(${PCL_DEFINITIONS})
 
 # set compile options
@@ -69,6 +68,6 @@ target_link_libraries(Control_Client ${ARIS_LINK_LIBS} ${SYSTEM_LINK_LIBS})
 set(SOURCE_FILES Vision_Client.cpp Vision_main.cpp Kinect_Test.cpp)
 #PREPEND(FULL_SRC Vision_Client ${SOURCE_FILES})
 add_executable(Vision_Client ${SOURCE_FILES})
-target_link_libraries(Vision_Client ${ARIS_LINK_LIBS}  ${SYSTEM_LINK_LIBS} ${PCL_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(Vision_Client ${ARIS_LINK_LIBS}  ${SYSTEM_LINK_LIBS} ${PCL_LIBRARIES})
 
 
