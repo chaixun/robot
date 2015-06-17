@@ -397,6 +397,10 @@ int OnStepOver(Aris::Core::MSG &msg)
             {
                 stepover_data[3] = 0.10;
             }
+            cout<<"Count "<<stepover_data[0]<<endl;
+            cout<<"X "<<stepover_data[1]<<endl;
+            cout<<"Y "<<stepover_data[2]<<endl;
+            cout<<"Z "<<stepover_data[3]<<endl;
 
             Aris::Core::MSG stepover_msg;
             stepover_msg.SetMsgID(Move);

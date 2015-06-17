@@ -216,7 +216,6 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         {
             Gridmapfile<<GridMap<<endl;
         }
-
         IsCaptureEnd = true;
     }
 }

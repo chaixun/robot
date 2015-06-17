@@ -126,7 +126,6 @@ int On_CS_Connected(Aris::Core::MSG &msg)
 
 int On_CS_CMD_Received(Aris::Core::MSG &msg)
 {
-
     MSG Command(msg);
     Command.SetMsgID(GetControlCommand);
     PostMsg(Command);
@@ -352,7 +351,11 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
                 move_data[0] = stepover_data[1];
                 move_data[1] = stepover_data[2];
                 move_data[2] = stepover_data[3];
-                cout<<move_data[0]<<" "<<move_data[1]<<" "<<move_data[2]<<endl;
+
+                cout<<"Move X: "<<move_data[0]<<endl;
+                cout<<"Move Y: "<<move_data[1]<<endl;
+                cout<<"Move Z: "<<move_data[2]<<endl;
+
                 HexIII.RobotMove(move_data, *Gait_Move_Map);
                 for(int j=0;j<GAIT_MOVE_MAP_LEN;j++)
                 {
@@ -365,6 +368,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
                 controlcmd.SetMsgID(MOVE);
                 cout<<"Send MOVE Message to CS"<<endl;
                 cs.NRT_PostMsg(controlcmd);
+
             }
         }
     }
@@ -399,7 +403,6 @@ int On_VS_Connected(Aris::Core::MSG &msg)
     cout<<"   Port is     : "<<*((int*)msg.GetDataAddress()) << endl << endl;
 
     return 0;
-
 }
 
 int On_VS_Capture(Aris::Core::MSG &msg)
