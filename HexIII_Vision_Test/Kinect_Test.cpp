@@ -112,12 +112,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         for(int k = 29; k <= 45; k++)
         {
-            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.05)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.07)
             {
                 positive = true;
             }
 
-            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.05)
+            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.07)
             {
                 negative = true;
             }
