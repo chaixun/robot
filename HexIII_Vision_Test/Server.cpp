@@ -105,6 +105,16 @@ int OnGetControlCommand(MSG &msg)
         PostMsg(visionmsg);
     }
         break;
+    case 15:
+    {
+        Vision_Msg visioncmd = Vision_StepOver;
+        Aris::Core::MSG visionmsg;
+        visionmsg.SetMsgID(VS_Capture);
+        visionmsg.SetLength(sizeof(visioncmd));
+        visionmsg.Copy(&visioncmd, sizeof(visioncmd));
+        PostMsg(visionmsg);
+    }
+        break;
     default:
         cout<<"Do Not Get Validate CMD"<<endl;
         break;
@@ -368,7 +378,6 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
                 controlcmd.SetMsgID(MOVE);
                 cout<<"Send MOVE Message to CS"<<endl;
                 cs.NRT_PostMsg(controlcmd);
-
             }
         }
     }

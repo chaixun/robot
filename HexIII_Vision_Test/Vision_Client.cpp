@@ -347,7 +347,6 @@ int OnStepDown(Aris::Core::MSG &msg)
                 {
                     Kinect::CurrentHeight[m] = -0.85;
                 }
-
             }
 
             StepDown_Foot_Height[(4+StepDown_Num)%5][0] = Kinect::CurrentHeight[1];

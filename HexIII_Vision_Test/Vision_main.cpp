@@ -40,7 +40,6 @@ int main()
     CONN VisualSystem;
     pVisualSystem = &VisualSystem;
 
-
     /*注册所有的消息函数*/
     Aris::Core::RegisterMsgCallback(VisualSystemDataNeeded, OnVisualSystemDataNeeded);
     Aris::Core::RegisterMsgCallback(VisualSystemLost, OnVisualSystemLost);
