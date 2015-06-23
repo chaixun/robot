@@ -110,16 +110,22 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         //Judge Terrain
 
+        int num_m, num_n;
+        num_m = 0;
+        num_n = 0;
+
         for(int k = 29; k <= 45; k++)
         {
             if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.07)
             {
                 positive = true;
+                num_m = k + 1;
             }
 
             if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.07)
             {
                 negative = true;
+                num_n = k + 1;
             }
         }
 
@@ -133,7 +139,14 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         }
         if(positive == true&& negative == true)
         {
-            Terrain = DitchTerrain;
+            if(abs(num_m - num_n) >6 )
+            {
+                Terrain = DitchTerrain;
+            }
+            else
+            {
+                Terrain = StepDownTerrain;
+            }
         }
         if(positive == false&& negative == false)
         {
