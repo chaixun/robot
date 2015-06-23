@@ -362,6 +362,7 @@ int On_VS_DataReceived(Aris::Core::CONN *pConn, Aris::Core::MSG &data)
                 move_data[1] = stepover_data[2];
                 move_data[2] = stepover_data[3];
 
+                cout<<"Move Data From Sensor"<<endl;
                 cout<<"Move X: "<<move_data[0]<<endl;
                 cout<<"Move Y: "<<move_data[1]<<endl;
                 cout<<"Move Z: "<<move_data[2]<<endl;

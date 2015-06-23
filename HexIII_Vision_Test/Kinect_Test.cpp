@@ -3,12 +3,8 @@
 double Kinect::CurrentHeight[4];
 bool Kinect::IsCaptureEnd;
 int Kinect::ControlCommand;
-int Kinect::leftedge_z;
-int Kinect::rightedge_z;
-int Kinect::near_leftedge_z;
-int Kinect::near_rightedge_z;
-int Kinect::far_leftedge_z;
-int Kinect::far_rightedge_z;
+int Kinect::leftedge_z[4] = {0, 0, 0, 0};
+int Kinect::rightedge_z[4] = {0, 0, 0, 0};
 int Kinect::leftedge_x;
 int Kinect::rightedge_x;
 int Kinect::Terrain;
@@ -18,12 +14,6 @@ Kinect::Kinect():interface(new pcl::OpenNIGrabber())
     IsCapture = false;
     IsCaptureEnd = false;
     frames_num = 0;
-    leftedge_z = 0;
-    rightedge_z = 0;
-    near_leftedge_z = 0;
-    near_rightedge_z = 0;
-    far_leftedge_z = 0;
-    far_rightedge_z = 0;
     leftedge_x = 0;
     rightedge_x = 0;
     Terrain = FlatTerrain;
@@ -55,12 +45,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         bool positive = false;
         bool negative = false;
 
-        leftedge_z = 0;
-        rightedge_z = 0;
-        near_leftedge_z = 0;
-        near_rightedge_z = 0;
-        far_leftedge_z = 0;
-        far_rightedge_z = 0;
+        for (int p = 0; p < 4; p++)
+        {
+            leftedge_z[p] = 0;
+            rightedge_z[p] = 0;
+        }
+
         leftedge_x = 0;
         rightedge_x = 0;
         Terrain = FlatTerrain;
@@ -143,7 +133,7 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         }
         if(positive == true&& negative == true)
         {
-            Terrain = StepDownTerrain;
+            Terrain = DitchTerrain;
         }
         if(positive == false&& negative == false)
         {
@@ -154,37 +144,22 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         {
             //Find Edge
 
+            int* right_pointer = rightedge_z;
+            int* left_pointer = leftedge_z;
+
             /*Find Edge Along Z*/
             for(int m = 29; m <= 55; m++)
             {
                 if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.05)
                 {
-                    rightedge_z = m + 1;
+                    *right_pointer = m + 1;
+                    right_pointer++;
                 }
 
                 if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.05)
                 {
-                    leftedge_z = m + 1;
-                }
-
-                if(Terrain == DitchTerrain)
-                {
-                    if(GridMap(m+1, 49)-GridMap(m, 49) < -0.05)
-                    {
-                        near_rightedge_z = m;
-                    }
-                    if(GridMap(m+1, 49)-GridMap(m, 49) > 0.05)
-                    {
-                        far_rightedge_z = m + 1;
-                    }
-                    if(GridMap(m+1, 72)-GridMap(m, 72) < -0.05)
-                    {
-                        near_leftedge_z = m;
-                    }
-                    if(GridMap(m+1, 72)-GridMap(m, 72) > 0.05)
-                    {
-                        far_leftedge_z = m + 1;
-                    }
+                    *left_pointer = m + 1;
+                    left_pointer++;
                 }
             }
 

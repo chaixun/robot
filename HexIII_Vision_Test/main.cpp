@@ -52,6 +52,7 @@ int main()
     initParam.homeLowSpeed=80000;
     initParam.homeOffsets=HEXBOT_HOME_OFFSETS_RESOLVER;
 
+    //initParam.homeMode = 17;
     initParam.homeMode = -1;
     initParam.homeTorqueLimit = 1000;
 

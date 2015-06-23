@@ -255,6 +255,12 @@ int Vision_Robot::RobotMove(double *Move, double *MoveData)
         0.3, -0.85,  0.65
     };
 
+    cout<<"Robot_Move_Data"<<endl;
+    cout<<"Move X: "<<Move[0]<<endl;
+    cout<<"Move Y: "<<Move[1]<<endl;
+    cout<<"Move Z: "<<Move[2]<<endl;
+
+
     double bodyEp[6], bodyEpo[6];
     memset(bodyEpo, 0, sizeof(bodyEpo));
 

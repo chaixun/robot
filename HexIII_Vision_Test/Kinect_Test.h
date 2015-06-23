@@ -40,12 +40,8 @@ public:
     static double CurrentHeight[4];
     static int ControlCommand;
     static bool IsCaptureEnd;
-    static int leftedge_z;
-    static int rightedge_z;
-    static int near_leftedge_z;
-    static int near_rightedge_z;
-    static int far_leftedge_z;
-    static int far_rightedge_z;
+    static int leftedge_z[4];
+    static int rightedge_z[4];
     static int leftedge_x;
     static int rightedge_x;
     static int Terrain;

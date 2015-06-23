@@ -101,13 +101,13 @@ int OnUpperControl(Aris::Core::MSG &msg)
             if(Kinect::Terrain != FlatTerrain)
             {
                 /* Turn */
-                if(abs(Kinect::leftedge_z - Kinect::rightedge_z) > 2)
+                if(abs(Kinect::leftedge_z[0] - Kinect::rightedge_z[0]) > 2)
                 {
                     /*max turn*/
                     cout<<"TURN"<<endl;
-                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
-                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
-                    double turn_ang = atan2((Kinect::rightedge_z - Kinect::leftedge_z), 24);
+                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z[0]<<endl;
+                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z[0]<<endl;
+                    double turn_ang = atan2((Kinect::rightedge_z[0] - Kinect::leftedge_z[0]), 24);
                     cout<<turn_ang<<endl;
                     if(abs(turn_ang) > 35*M_PI/180)
                     {
@@ -124,14 +124,14 @@ int OnUpperControl(Aris::Core::MSG &msg)
                 {
                     /*Move Closer*/
                     cout<<"MOVE FORWARD AND BACKWARD"<<endl;
-                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z<<endl;
-                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z<<endl;
-                    if((Kinect::leftedge_z < 30) || (Kinect::leftedge_z > 32))
+                    cout<<"LEFT EDGE Z: "<<Kinect::leftedge_z[0]<<endl;
+                    cout<<"RIGHT EDGE Z: "<<Kinect::rightedge_z[0]<<endl;
+                    if((Kinect::leftedge_z[0] < 30) || (Kinect::leftedge_z[0] > 32))
                     {
                         /*max walk*/
                         double movez_data[3] = {0, 0, 0};
-                        movez_data[2] = (Kinect::leftedge_z - 31)*0.025;
-                        if(Kinect::leftedge_z < 30)
+                        movez_data[2] = (Kinect::leftedge_z[0] - 31)*0.025;
+                        if(Kinect::leftedge_z[0] < 30)
                         {
                             movez_data[2] = movez_data[2] < -0.325? -0.325 : movez_data[2];
                         }
@@ -402,7 +402,7 @@ int OnStepOver(Aris::Core::MSG &msg)
             cout<<"Z "<<stepover_data[3]<<endl;
 
             Aris::Core::MSG stepover_msg;
-            stepover_msg.SetMsgID(Move);
+            stepover_msg.SetMsgID(StepOver);
             stepover_msg.SetLength(4*sizeof(double));
             stepover_msg.Copy(stepover_data, sizeof(stepover_data));
             pVisualSystem->SendData(stepover_msg);
