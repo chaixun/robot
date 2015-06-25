@@ -5,8 +5,8 @@ bool Kinect::IsCaptureEnd;
 int Kinect::ControlCommand;
 int Kinect::leftedge_z[4] = {0, 0, 0, 0};
 int Kinect::rightedge_z[4] = {0, 0, 0, 0};
-int Kinect::leftedge_x;
-int Kinect::rightedge_x;
+int Kinect::leftedge_x[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int Kinect::rightedge_x[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int Kinect::Terrain;
 
 Kinect::Kinect():interface(new pcl::OpenNIGrabber())
@@ -14,8 +14,6 @@ Kinect::Kinect():interface(new pcl::OpenNIGrabber())
     IsCapture = false;
     IsCaptureEnd = false;
     frames_num = 0;
-    leftedge_x = 0;
-    rightedge_x = 0;
     Terrain = FlatTerrain;
 }
 Kinect::~Kinect()
@@ -51,8 +49,12 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             rightedge_z[p] = 0;
         }
 
-        leftedge_x = 0;
-        rightedge_x = 0;
+        for (int q = 0; q < 10; q++)
+        {
+            leftedge_x[q] = 0;
+            rightedge_x[q] = 0;
+        }
+
         Terrain = FlatTerrain;
 
         //bool Obstacle = false;
@@ -157,22 +159,24 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         {
             //Find Edge
 
-            int* right_pointer = rightedge_z;
-            int* left_pointer = leftedge_z;
+            int* rightz_pointer = rightedge_z;
+            int* leftz_pointer = leftedge_z;
+            int* rightx_pointer = rightedge_x;
+            int* leftx_pointer = leftedge_x;
 
             /*Find Edge Along Z*/
             for(int m = 29; m <= 55; m++)
             {
                 if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.05)
                 {
-                    *right_pointer = m + 1;
-                    right_pointer++;
+                    *rightz_pointer = m + 1;
+                    rightz_pointer++;
                 }
 
                 if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.05)
                 {
-                    *left_pointer = m + 1;
-                    left_pointer++;
+                    *leftz_pointer = m + 1;
+                    leftz_pointer++;
                 }
             }
 
@@ -181,11 +185,13 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             {
                 if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.05 )
                 {
-                    rightedge_x = 60 - k;
+                    *rightx_pointer = 60 - k;
+                    rightx_pointer++;
                 }
                 if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.05 )
                 {
-                    leftedge_x = 60 + k;
+                    *leftx_pointer = 60 + k;
+                    leftx_pointer++;
                 }
             }
         }

@@ -42,8 +42,8 @@ public:
     static bool IsCaptureEnd;
     static int leftedge_z[4];
     static int rightedge_z[4];
-    static int leftedge_x;
-    static int rightedge_x;
+    static int leftedge_x[10];
+    static int rightedge_x[10];
     static int Terrain;
 
 private:

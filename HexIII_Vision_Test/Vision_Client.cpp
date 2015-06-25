@@ -150,17 +150,17 @@ int OnUpperControl(Aris::Core::MSG &msg)
                     {
                         /*Move Middle*/
                         cout<<"MOVE LFET AND RIGHT"<<endl;
-                        cout<<"LEFT_X: "<<Kinect::leftedge_x<<endl;
-                        cout<<"RIGHT_X: "<<Kinect::rightedge_x<<endl;
-                        if((Kinect::rightedge_x !=0&&Kinect::rightedge_x > 39)
-                                ||(Kinect::leftedge_x!=0&&Kinect::leftedge_x < 82))
+                        cout<<"LEFT_X: "<<Kinect::leftedge_x[0]<<endl;
+                        cout<<"RIGHT_X: "<<Kinect::rightedge_x[0]<<endl;
+                        if((Kinect::rightedge_x[0] !=0&&Kinect::rightedge_x[0] > 39)
+                                ||(Kinect::leftedge_x[0] !=0&&Kinect::leftedge_x[0] < 82))
                         {
                             /*max walk*/
-                            if(Kinect::rightedge_x < 39)
+                            if(Kinect::rightedge_x[0] < 39)
                             {
                                 double movexr_data[3] = {0, 0, 0};
-                                movexr_data[0] = (Kinect::leftedge_x - 82)*0.025;
-                                movexr_data[0] = movexr_data[0] < -0.07?-0.07 : movexr_data[0];
+                                movexr_data[0] = (Kinect::leftedge_x[0] - 82)*0.025;
+                                movexr_data[0] = movexr_data[0] < -0.1 ? -0.1 : movexr_data[0];
                                 Aris::Core::MSG movexr_msg;
                                 movexr_msg.SetMsgID(Move);
                                 movexr_msg.SetLength(3*sizeof(double));
@@ -171,8 +171,8 @@ int OnUpperControl(Aris::Core::MSG &msg)
                             else
                             {
                                 double movexl_data[3] = {0, 0, 0};
-                                movexl_data[0] = (Kinect::rightedge_x - 39)*0.025;
-                                movexl_data[0] = movexl_data[0] > 0.07 ? 0.07 : movexl_data[0];
+                                movexl_data[0] = (Kinect::rightedge_x[0] - 39)*0.025;
+                                movexl_data[0] = movexl_data[0] > 0.1 ? 0.1 : movexl_data[0];
                                 Aris::Core::MSG movexl_msg;
                                 movexl_msg.SetMsgID(Move);
                                 movexl_msg.SetLength(3*sizeof(double));
