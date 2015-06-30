@@ -3,8 +3,8 @@
 double Kinect::CurrentHeight[4];
 bool Kinect::IsCaptureEnd;
 int Kinect::ControlCommand;
-int Kinect::leftedge_z[4] = {0, 0, 0, 0};
-int Kinect::rightedge_z[4] = {0, 0, 0, 0};
+int Kinect::leftedge_z[6] = {0, 0, 0, 0, 0, 0};
+int Kinect::rightedge_z[6] = {0, 0, 0, 0, 0, 0};
 int Kinect::leftedge_x[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int Kinect::rightedge_x[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int Kinect::Terrain;
@@ -40,10 +40,10 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 {
     if (IsCapture == true)
     {
-        bool positive = false;
-        bool negative = false;
+        bool positive[6] = {false, false, false, false, false, false};
+        bool negative[6] = {false, false, false, false, false, false};
 
-        for (int p = 0; p < 4; p++)
+        for (int p = 0; p < 6; p++)
         {
             leftedge_z[p] = 0;
             rightedge_z[p] = 0;
@@ -81,7 +81,6 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
         //                0, 0, 0, 1;
         pcl::transformPointCloud(*SensorPoint,*RobotPoint,transformation2);
 
-
         //Mapping GridMap
 
         Eigen::MatrixXf GridMap = Eigen::MatrixXf::Zero(120,120);
@@ -112,45 +111,45 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
         //Judge Terrain
 
-        int num_m, num_n;
-        num_m = 0;
-        num_n = 0;
+        bool* positive_pointer = positive;
+        bool* negative_pointer = negative;
 
-        for(int k = 29; k <= 45; k++)
+        for(int k = 29; k <= 49; k++)
         {
-            if(GridMap(k + 1, 59) - GridMap(k, 59) > 0.07)
+            // fill in nan data along z middle 60
+            int r = 2;
+            while(GridMap(k + 1, 60) == 0 && r < 10)
             {
-                positive = true;
-                num_m = k + 1;
+                GridMap(k + 1, 60) = GridMap(k + r, 60);
+                r++;
             }
 
-            if(GridMap(k + 1, 59) - GridMap(k, 59) < -0.07)
+            if(GridMap(k + 1, 60) - GridMap(k, 60) > 0.05)
             {
-                negative = true;
-                num_n = k + 1;
+                *positive_pointer = true;
+                positive_pointer++;
+            }
+
+            if(GridMap(k + 1, 60) - GridMap(k, 60) < -0.05)
+            {
+                *negative_pointer = true;
+                negative_pointer++;
             }
         }
 
-        if(positive == true&& negative == false)
+        if(positive[0] == true&& negative[0] == false)
         {
             Terrain = StepUpTerrain;
         }
-        if(positive == false&& negative == true)
+        if(positive[0] == false&& negative[0] == true)
         {
             Terrain = StepDownTerrain;
         }
-        if(positive == true&& negative == true)
+        if(positive[0] == true&& negative[0] == true)
         {
-            if(abs(num_m - num_n) >6 )
-            {
-                Terrain = DitchTerrain;
-            }
-            else
-            {
-                Terrain = StepDownTerrain;
-            }
+            Terrain = DitchTerrain;
         }
-        if(positive == false&& negative == false)
+        if(positive[0] == false&& negative[0] == false)
         {
             Terrain = FlatTerrain;
         }
@@ -167,10 +166,26 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             /*Find Edge Along Z*/
             for(int m = 29; m <= 55; m++)
             {
+                //fill in nan data along z right 49
+                int p = 2;
+                while(GridMap(m + 1, 49) == 0 && p < 10)
+                {
+                    GridMap(m + 1, 49) = GridMap(m + p, 49);
+                    p++;
+                }
+
                 if(abs(GridMap(m+1, 49)-GridMap(m, 49)) > 0.05)
                 {
                     *rightz_pointer = m + 1;
                     rightz_pointer++;
+                }
+
+                //fill in nan data along z left 49
+                int q = 2;
+                while(GridMap(m + 1, 72) == 0 && q < 10)
+                {
+                    GridMap(m + 1, 72) = GridMap(m + q, 72);
+                    q++;
                 }
 
                 if(abs(GridMap(m+1, 72)-GridMap(m, 72)) > 0.05)
@@ -183,11 +198,28 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             /*Find Edge Along X*/
             for(int k = 0; k < 25; k++)
             {
+                //fill in nan data along x right 50
+                int s = 1;
+                while(GridMap(50, 60-k-1) == 0 && (60-k-1-s) > 25)
+                {
+                    GridMap(50, 60-k-1) = GridMap(50, 60-k-1-s);
+                    s++;
+                }
+
                 if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.05 )
                 {
                     *rightx_pointer = 60 - k;
                     rightx_pointer++;
                 }
+
+                //fill in nan data along x left 50
+                int t = 1;
+                while(GridMap(50, 60+k+1) == 0 && (60+k+1+t) < 95)
+                {
+                    GridMap(50, 60+k+1) = GridMap(50, 60+k+1+t);
+                    t++;
+                }
+
                 if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.05 )
                 {
                     *leftx_pointer = 60 + k;
