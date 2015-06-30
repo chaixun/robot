@@ -54,6 +54,7 @@ int main()
 
     //initParam.homeMode = 17;
     initParam.homeMode = -1;
+    //initParam.homeTorqueLimit = 50;
     initParam.homeTorqueLimit = 1000;
 
     //cs.Load_XML_PrintMessage();
