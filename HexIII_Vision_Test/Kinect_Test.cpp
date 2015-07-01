@@ -196,17 +196,17 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
             }
 
             /*Find Edge Along X*/
-            for(int k = 0; k < 25; k++)
+            for(int k = 0; k < 30; k++)
             {
                 //fill in nan data along x right 50
                 int s = 1;
-                while(GridMap(50, 60-k-1) == 0 && (60-k-1-s) > 25)
+                while(GridMap(60, 60-k-1) == 0 && (60-k-1-s) > 23)
                 {
-                    GridMap(50, 60-k-1) = GridMap(50, 60-k-1-s);
+                    GridMap(60, 60-k-1) = GridMap(60, 60-k-1-s);
                     s++;
                 }
 
-                if(abs(GridMap(50, 60-k-1) - GridMap(50, 60-k)) > 0.05 )
+                if(abs(GridMap(60, 60-k-1) - GridMap(60, 60-k)) > 0.05 )
                 {
                     *rightx_pointer = 60 - k;
                     rightx_pointer++;
@@ -214,13 +214,13 @@ void Kinect::pointcloud(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 
                 //fill in nan data along x left 50
                 int t = 1;
-                while(GridMap(50, 60+k+1) == 0 && (60+k+1+t) < 95)
+                while(GridMap(60, 60+k+1) == 0 && (60+k+1+t) < 97)
                 {
-                    GridMap(50, 60+k+1) = GridMap(50, 60+k+1+t);
+                    GridMap(60, 60+k+1) = GridMap(60, 60+k+1+t);
                     t++;
                 }
 
-                if(abs(GridMap(50, 60+k+1) - GridMap(50, 60+k)) > 0.05 )
+                if(abs(GridMap(60, 60+k+1) - GridMap(60, 60+k)) > 0.05 )
                 {
                     *leftx_pointer = 60 + k;
                     leftx_pointer++;
