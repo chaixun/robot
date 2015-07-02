@@ -153,13 +153,13 @@ int OnUpperControl(Aris::Core::MSG &msg)
                         cout<<"LEFT_X: "<<Kinect::leftedge_x[0]<<endl;
                         cout<<"RIGHT_X: "<<Kinect::rightedge_x[0]<<endl;
                         if((Kinect::rightedge_x[0] !=0&&Kinect::rightedge_x[0] > 35)
-                                ||(Kinect::leftedge_x[0] !=0&&Kinect::leftedge_x[0] < 86))
+                                ||(Kinect::leftedge_x[0] !=0&&Kinect::leftedge_x[0] < 85))
                         {
                             /*max walk*/
                             if(Kinect::rightedge_x[0] < 35)
                             {
                                 double movexr_data[3] = {0, 0, 0};
-                                movexr_data[0] = (Kinect::leftedge_x[0] - 86)*0.025;
+                                movexr_data[0] = (Kinect::leftedge_x[0] - 85)*0.025;
                                 movexr_data[0] = movexr_data[0] < -0.1 ? -0.1 : movexr_data[0];
                                 Aris::Core::MSG movexr_msg;
                                 movexr_msg.SetMsgID(Move);
